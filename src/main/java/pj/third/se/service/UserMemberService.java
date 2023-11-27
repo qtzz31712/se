@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import pj.third.se.Vo.UserMemberVo;
 import pj.third.se.repository.UserMemberRepository;
 
+import java.util.List;
+
 @Slf4j
 @Service
 public class UserMemberService {
@@ -40,4 +42,10 @@ public class UserMemberService {
 //
 //        }
     }
+
+    public List<UserMemberVo> myInfo(int u_no){
+        log.info("u_no --> : {}", u_no);
+        return userMemberRepository.selectMyInfo(u_no);
+    }
+
 }

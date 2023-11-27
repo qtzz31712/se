@@ -11,6 +11,8 @@
     <title>Title</title>
 </head>
 <body>
-
+<section>
+    ${}
+</section>
 </body>
 </html>
