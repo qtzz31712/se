@@ -1,5 +1,6 @@
 package pj.third.se.controller.user;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,23 +42,40 @@ public class UserMemberController {
     }
 
     @GetMapping("/myInfo")
-    public String myInfo(@RequestParam("u_no") int u_no,UserMemberVo userMemberVo, Model model) {
+    public String myInfo(@RequestParam("u_no") int u_no, UserMemberVo userMemberVo, Model model) {
         String nextPage;
         log.info("u_no --> : {}", u_no);
         nextPage = "user/member/myInfo";
-        List<UserMemberVo> userMemberVos =userMemberService.myInfo(u_no);
+        List<UserMemberVo> userMemberVos = userMemberService.myInfo(u_no);
         model.addAttribute("userMemberVos", userMemberVos);
         return nextPage;
     }
 
-
-/*    @ResponseBody
-    @PostMapping("/createAccountConfirm")
-    public ResponseEntity<UserMemberVo> createAccountConfirm(@RequestBody UserMemberVo userMemberVo) {
+    @RequestMapping(value = "/loginForm", method = {RequestMethod.POST, RequestMethod.GET})
+    public String loginForm() {
         String nextPage;
+        System.out.println("로그인호출");
+        nextPage = "user/member/login_form";
+        return nextPage;
+        Boolean result = userMemberService.loginConfirm();
 
-      //  nextPage = "user/member/create_account_ok";
-        return ResponseEntity<>( , HttpStatus.BAD_REQUEST );
-    }*/
+    }
+
+    @PostMapping("/loginConfirm")
+    public String loginConfirm(UserMemberVo userMemberVo, HttpSession session) {
+        String nextPage = "/index";
+
+        UserMemberVo loginedUserMemberVo = userMemberService.loginConfirm(userMemberVo);
+
+        if (loginedUserMemberVo == null) {
+            nextPage = "user/member/login_ng";
+
+        } else {
+            session.setAttribute("loginedUserMemberVo", loginedUserMemberVo);
+            session.setMaxInactiveInterval(60 * 30);
+
+        }
+    }
+
 
 }

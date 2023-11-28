@@ -47,5 +47,8 @@ public class UserMemberService {
         log.info("u_no --> : {}", u_no);
         return userMemberRepository.selectMyInfo(u_no);
     }
+public UserMemberVo loginConfirm(UserMemberVo userMemberVo) {
+        return userMemberRepository.loginConfirm(userMemberVo);
+}
 
 }
