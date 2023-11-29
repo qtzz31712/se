@@ -3,15 +3,47 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
+
 <mapper namespace="pj.third.se.repository.UserMemberRepository">
+
+    <resultMap id="UserMemberVo" type="pj.third.se.Vo.UserMemberVo">
+        <id property="u_no" column="u_no"/>
+        <result property="u_id" column="u_id"/>
+        <result property="u_name" column="u_name"/>
+        <result property="u_gender" column="u_gender"/>
+        <result property="u_mail" column="u_mail"/>
+        <result property="u_phone" column="u_phone"/>
+        <result property="u_birth" column="u_birth"/>
+        <result property="u_reg_date" column="u_reg_date"/>
+        <result property="u_mod_date" column="u_mod_date"/>
+
+    </resultMap>
+
     <insert id="saveUser"  parameterType="pj.third.se.Vo.UserMemberVo">
         INSERT INTO tbl_user(u_id, u_pw, u_name, u_gender, u_mail, u_phone, u_birth, u_reg_date, u_mod_date)
         VALUES (#{u_id}, #{u_pw}, #{u_name}, #{u_gender}, #{u_mail}, #{u_phone}, #{u_birth}, NOW(), NOW())
     </insert>
 
-    <select id="selectMyInfo" parameterType="pj.third.se.Vo.UserMemberVo">
+    <select id="selectMyInfo" parameterType="pj.third.se.Vo.UserMemberVo" resultMap="UserMemberVo">
         SELECT * FROM tbl_user WHERE u_no =#{u_no}
     </select>
+
+    <select id="selectUser" parameterType="pj.third.se.Vo.UserMemberVo" resultMap= "UserMemberVo">
+        SELECT * FROM tbl_user WHERE  u_id=#{u_id} AND u_pw=#{u_pw}
+    </select>
+
+    <update id="updateUser" parameterType="pj.third.se.Vo.UserMemberVo">
+        UPDATE tbl_user SET
+       u_pw=#{u_pw}, u_name=#{u_name}, u_mail=#{u_mail}, u_phone=#{u_phone}, u_mod_date=NOW()
+        WHERE u_no=#{u_no}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM tbl_user
+               WHERE u_no=#{u_no}
+    </delete>
+
 
 
 </mapper>

@@ -2,9 +2,6 @@ package pj.third.se.controller.user;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +15,14 @@ import java.util.List;
 @RequestMapping("/user/member")
 public class UserMemberController {
 
-    @Autowired
+    final
     UserMemberService userMemberService;
 
+    public UserMemberController(UserMemberService userMemberService) {
+        this.userMemberService = userMemberService;
+    }
+
+    //회원 가입 관련
     @GetMapping("/createAccount")
     public String createAccountForm() {
         String nextPage;
@@ -32,17 +34,38 @@ public class UserMemberController {
     public String createAccountConfirm(UserMemberVo userMemberVo) {
         String nextPage;
         Boolean result = userMemberService.createAccountConfirm(userMemberVo);
-
         log.info("result --> : {}", result);
-        if (result)
-            nextPage = "user/member/create_account_ng";
-
         nextPage = "index";
         return nextPage;
     }
 
-    @GetMapping("/myInfo")
-    public String myInfo(@RequestParam("u_no") int u_no, UserMemberVo userMemberVo, Model model) {
+// 로그인 관련
+    @RequestMapping(value = "/loginForm", method = {RequestMethod.POST, RequestMethod.GET})
+    public String loginForm() {
+        String nextPage;
+        System.out.println("로그인호출");
+        nextPage = "user/member/login_form";
+        return nextPage;
+    }
+
+    @PostMapping("/loginConfirm")
+    public String loginConfirm(UserMemberVo userMemberVo, HttpSession session) {
+        String nextPage = "redirect:/se";
+
+        UserMemberVo loginedUserMemberVo = userMemberService.loginConfirm(userMemberVo);
+
+        if (loginedUserMemberVo == null) {
+            nextPage = "user/member/login_ng";
+        } else {
+            session.setAttribute("loginedUserMemberVo", loginedUserMemberVo);
+            session.setMaxInactiveInterval(60 * 30);
+        }
+        return nextPage;
+    }
+
+    //회원 정보 열람 및 수정
+    @RequestMapping(value = "/myInfo", method = { RequestMethod.POST, RequestMethod.GET })
+    public String myInfo(@RequestParam("u_no") int u_no,Model model) {
         String nextPage;
         log.info("u_no --> : {}", u_no);
         nextPage = "user/member/myInfo";
@@ -50,32 +73,44 @@ public class UserMemberController {
         model.addAttribute("userMemberVos", userMemberVos);
         return nextPage;
     }
+   @RequestMapping(value = "/modifyAccountForm", method = {RequestMethod.POST, RequestMethod.GET} )
+   public String modifyAccountForm(@RequestParam("u_no") int u_no,Model model){
+       String nextPage;
+       List<UserMemberVo> userMemberVos = userMemberService.myInfo(u_no);
+       model.addAttribute("userMemberVos", userMemberVos);
+       nextPage = "user/member/modifyAccountForm";
+       return nextPage;
+   }
 
-    @RequestMapping(value = "/loginForm", method = {RequestMethod.POST, RequestMethod.GET})
-    public String loginForm() {
+    @PostMapping(value = "/modifyAccountConfirm")
+    public String modifyAccountConfirm(UserMemberVo userMemberVo) {
         String nextPage;
-        System.out.println("로그인호출");
-        nextPage = "user/member/login_form";
-        return nextPage;
-        Boolean result = userMemberService.loginConfirm();
-
-    }
-
-    @PostMapping("/loginConfirm")
-    public String loginConfirm(UserMemberVo userMemberVo, HttpSession session) {
-        String nextPage = "/index";
-
-        UserMemberVo loginedUserMemberVo = userMemberService.loginConfirm(userMemberVo);
-
-        if (loginedUserMemberVo == null) {
-            nextPage = "user/member/login_ng";
-
+        int result = userMemberService.modifyUserMember(userMemberVo);
+        if (result == 1) {
+            nextPage = "redirect:/se";
         } else {
-            session.setAttribute("loginedUserMemberVo", loginedUserMemberVo);
-            session.setMaxInactiveInterval(60 * 30);
-
+            nextPage ="redirect:/user/modifyAccountForm";
         }
+        return nextPage;
     }
+
+    //회원 삭제
+//    @RequestMapping(value = "/deleteAccountForm", method = {RequestMethod.GET, RequestMethod.POST})
+//    public String deleteAccountForm (@RequestParam("u_no") int u_no, Model model){
+//        String nextPage;
+//        model.addAttribute("u_no", u_no);
+//        nextPage = "user/member/deleteAccountForm";
+//        return nextPage;
+//    }
+
+    @RequestMapping(value = "/deleteAccountConfirm", method = {RequestMethod.GET, RequestMethod.POST})
+    public String deleteAccountConfirm(@RequestParam("u_no") int u_no){
+        String nextPage;
+        int result = userMemberService.deleteUserMember(u_no);
+        nextPage = "redirect:/se";
+        return nextPage;
+        }
+
 
 
 }

@@ -1,52 +1,44 @@
+<jsp:useBean id="UserMemberVos" scope="request" type=""/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2023-11-23
-  Time: 오후 4:55
+  Date: 2023-11-29
+  Time: 오후 4:28
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>나의 정보</title>
+
 </head>
 <body>
-<section>
-    <div id="section_wrap">
-        <div class="word">
-            <h3>나의 정보</h3>
-        </div>
+<jsp:useBean id="userMemberVos" scope="request" type="java.util.List"/>
+<jsp:include page="../../common/header.jsp"/>
+<div class="my_account_form">
 
-        <div class="create_account_form">
-            <form action="${pageContext.request.contextPath}/user/member/createAccountConfirm" name="create_account_form" method="post">
-                <div><p>아이디</p><input type="text" name="u_id" placeholder="아이디를 입력하세요." readonly></div>
-                <p id="idable">${u_id}</p>
-                <div><p>비밀번호</p><input type="password" name="u_pw" placeholder="비밀번호를 입력하세요."> ${u_pw}<br></div>
-                <div><p>이름</p><input type="text" name="u_name" placeholder="이름을 입력하세요."> ${u_name}<br></div>
-                <div><p>성별</p><select name="u_gender">
-                    <option value="">성별을 입력하세요</option>
-                    <c:if u_gender.value == M>
-                    <option value="M">Man</option>
-                    <option value="W">Woman</option>
-                    <div><p>이메일</p><input type="email" name="u_mail"	placeholder="이메일을 입력하세요." readonly>${u_mail}</div>
-                    <div><p>휴대폰 번호</p><input type="text" name="u_phone"	placeholder="휴대폰 번호 '-'제외하고 입력하세요.">${u_phone}</div>
-                    <div><p>생년 월일</p><input type="date" name="u_birth"	placeholder="생년월일을 입력하세요.">${u_birth}</div>
+        <form action="${pageContext.request.contextPath}/user/member/createAccountConfirm" name="create_account_form" method="post">
+            <input type="hidden" name="u_no" value="${UserMemberVos.u_no}">
+            <div><p>아이디</p><input type="text" name="u_id" value="${UserMemberVos.u_id}" readonly></div>
+            <p id="idable"></p>
+            <div><p>비밀번호</p><input type="password" name="u_pw" value="${UserMemberVos.u_pw}" readonly> </div>
+            <div><p>이름</p><input type="text" name="u_name" value="${UserMemberVos.u_name}" readonly> </div>
+            <div><p>성별</p>
+                <select name="u_gender" disabled>
+                    <option value="">성별을 입력 하세요</option>
+                    <option value="M"  ${UserMemberVos.u_gender == 'M' ? 'selected' : ''}>Man</option>
+                    <option value="W"  ${UserMemberVos.u_gender == 'W' ? 'selected' : ''}>Woman</option>
+                </select>
+                <div><p>이메일</p><input type="email" name="u_mail"	value="${UserMemberVos.u_mail}" readonly></div>
+                <div><p>휴대폰 번호</p><input type="text" name="u_phone"	value="${UserMemberVos.u_phone}" readonly></div>
+                <div><p>생년 월일</p><input type="text" name="u_birth"	value="${UserMemberVos.u_birth}" readonly></div>
+            </div>
+        </form>
 
-                </select> <br></div>
-                <input type="button" class ="join" value="수정하기" onclick="modifyAccountForm();">
-                <!-- <input type="reset" value="reset"> -->
 
-            </form>
-
-        </div>
-
-        <%-- <div class="login">
-            <a href="<c:url value='/user/member/loginForm' />">login</a>
-        </div> --%>
-
-    </div>
-
-</section>
+    <a class="modify_account" href="${pageContext.request.contextPath}/user/member/modifyAccountForm?u_no=${UserMemberVos.u_no}">정보 수정</a>
+    <a class="modify_account" href="${pageContext.request.contextPath}/user/member/deleteAccountConfirm?u_no=${UserMemberVos.u_no}">회원 삭제</a>
+</div>
 </body>
 </html>

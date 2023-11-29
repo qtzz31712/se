@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/se", method = {RequestMethod.GET, RequestMethod.POST})
     public String homeController() {
         System.out.println("홈 컨트롤러 호출");
         String nextPage;

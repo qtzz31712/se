@@ -16,4 +16,6 @@ public class UserMemberVo {
     String u_birth;
     String u_reg_date;
     String u_mod_date;
+
+
 }

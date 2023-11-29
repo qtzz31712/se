@@ -48,7 +48,14 @@ public class UserMemberService {
         return userMemberRepository.selectMyInfo(u_no);
     }
 public UserMemberVo loginConfirm(UserMemberVo userMemberVo) {
-        return userMemberRepository.loginConfirm(userMemberVo);
+        return userMemberRepository.selectUser(userMemberVo);
 }
 
+    public int modifyUserMember(UserMemberVo userMemberVo) {
+    return userMemberRepository.updateUser(userMemberVo);
+    }
+
+    public int deleteUserMember(int u_no) {
+return userMemberRepository.deleteUser(u_no);
+    }
 }
