@@ -1,12 +1,10 @@
-package pj.third.se.service;
+package pj.third.se.service.member;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pj.third.se.Vo.UserMemberVo;
-import pj.third.se.repository.UserMemberRepository;
-
-import java.util.List;
+import pj.third.se.Vo.member.UserMemberVo;
+import pj.third.se.repository.member.UserMemberRepository;
 
 @Slf4j
 @Service
@@ -43,7 +41,7 @@ public class UserMemberService {
 //        }
     }
 
-    public List<UserMemberVo> myInfo(int u_no){
+    public UserMemberVo myInfo(int u_no){
         log.info("u_no --> : {}", u_no);
         return userMemberRepository.selectMyInfo(u_no);
     }

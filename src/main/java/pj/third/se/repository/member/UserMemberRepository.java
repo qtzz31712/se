@@ -1,8 +1,7 @@
-package pj.third.se.repository;
+package pj.third.se.repository.member;
 
 import org.apache.ibatis.annotations.Mapper;
-import pj.third.se.Vo.UserMemberVo;
-import java.util.List;
+import pj.third.se.Vo.member.UserMemberVo;
 
 @Mapper
 public interface UserMemberRepository {
@@ -17,10 +16,11 @@ public interface UserMemberRepository {
     UserMemberVo selectUser(UserMemberVo userMemberVo);
 
     //  유저 정보 열람
-    List<UserMemberVo> selectMyInfo(int u_no);
+    UserMemberVo selectMyInfo(int u_no);
     
     // 유저 정보 수정
     int updateUser(UserMemberVo userMemberVo);
 
+    //회원 탈퇴
     int deleteUser(int u_no);
 }

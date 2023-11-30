@@ -1,14 +1,12 @@
-package pj.third.se.controller.user;
+package pj.third.se.controller.member;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pj.third.se.Vo.UserMemberVo;
-import pj.third.se.service.UserMemberService;
-
-import java.util.List;
+import pj.third.se.Vo.member.UserMemberVo;
+import pj.third.se.service.member.UserMemberService;
 
 @Slf4j
 @Controller
@@ -44,7 +42,7 @@ public class UserMemberController {
     public String loginForm() {
         String nextPage;
         System.out.println("로그인호출");
-        nextPage = "user/member/login_form";
+        nextPage = "common/member/login_form";
         return nextPage;
     }
 
@@ -55,7 +53,7 @@ public class UserMemberController {
         UserMemberVo loginedUserMemberVo = userMemberService.loginConfirm(userMemberVo);
 
         if (loginedUserMemberVo == null) {
-            nextPage = "user/member/login_ng";
+            nextPage = "common/member/login_ng";
         } else {
             session.setAttribute("loginedUserMemberVo", loginedUserMemberVo);
             session.setMaxInactiveInterval(60 * 30);
@@ -65,20 +63,32 @@ public class UserMemberController {
 
     //회원 정보 열람 및 수정
     @RequestMapping(value = "/myInfo", method = { RequestMethod.POST, RequestMethod.GET })
-    public String myInfo(@RequestParam("u_no") int u_no,Model model) {
+    public String myInfo(@RequestParam("u_no") int u_no, Model model) {
         String nextPage;
         log.info("u_no --> : {}", u_no);
-        nextPage = "user/member/myInfo";
-        List<UserMemberVo> userMemberVos = userMemberService.myInfo(u_no);
-        model.addAttribute("userMemberVos", userMemberVos);
+        UserMemberVo userMemberVos = userMemberService.myInfo(u_no);
+        if (userMemberVos != null) {
+            model.addAttribute("userMemberVos", userMemberVos);
+            nextPage = "user/member/myInfo";
+        } else {
+            // null인 경우에 대한 처리 (예: 에러 메시지 설정 등)
+            model.addAttribute("error", "유저 정보를 가져 오는데 실패 했습니다");
+            nextPage = "/se";
+        }
         return nextPage;
     }
    @RequestMapping(value = "/modifyAccountForm", method = {RequestMethod.POST, RequestMethod.GET} )
    public String modifyAccountForm(@RequestParam("u_no") int u_no,Model model){
        String nextPage;
-       List<UserMemberVo> userMemberVos = userMemberService.myInfo(u_no);
-       model.addAttribute("userMemberVos", userMemberVos);
-       nextPage = "user/member/modifyAccountForm";
+       UserMemberVo userMemberVos = userMemberService.myInfo(u_no);
+       if (userMemberVos != null) {
+           model.addAttribute("userMemberVos", userMemberVos);
+           nextPage = "user/member/modifyAccountForm";
+       } else {
+           // null인 경우에 대한 처리 (예: 에러 메시지 설정 등)
+           model.addAttribute("error", "유저 정보를 가져 오는데 실패 했습니다");
+           nextPage ="/se";
+       }
        return nextPage;
    }
 
@@ -94,15 +104,15 @@ public class UserMemberController {
         return nextPage;
     }
 
-    //회원 삭제
-//    @RequestMapping(value = "/deleteAccountForm", method = {RequestMethod.GET, RequestMethod.POST})
-//    public String deleteAccountForm (@RequestParam("u_no") int u_no, Model model){
-//        String nextPage;
-//        model.addAttribute("u_no", u_no);
-//        nextPage = "user/member/deleteAccountForm";
-//        return nextPage;
-//    }
+    //로그아웃
+    @GetMapping("/logoutConfirm")
+    public String logoutConfirm(HttpSession session) {
+        String nextPage = "redirect:/se";
+        session.invalidate();
+        return nextPage;
+    }
 
+    //회원 탈퇴
     @RequestMapping(value = "/deleteAccountConfirm", method = {RequestMethod.GET, RequestMethod.POST})
     public String deleteAccountConfirm(@RequestParam("u_no") int u_no){
         String nextPage;

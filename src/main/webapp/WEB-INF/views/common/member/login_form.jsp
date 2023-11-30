@@ -35,7 +35,7 @@
 </head>
 <body>
 <section>
-    <form action="${pageContext.request.contextPath}/user/member/loginConfirm" name="login_form" method="post">
+    <form action="${pageContext.request.contextPath}/instructor/member/loginConfirm" name="login_form" method="post">
         <input type="hidden"	name="loginType" value="">
     <div>
         <input type="text"		name="u_id" 		placeholder="아이디를 입력하세요."> <br>

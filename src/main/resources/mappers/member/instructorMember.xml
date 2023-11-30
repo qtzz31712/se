@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="pj.third.se.repository.member.InstructorMemberRepository">
+
+    <resultMap id="InstructorMemberVo" type="pj.third.se.Vo.member.InstructorMemberVo">
+        <id property="t_no" column="t_no"/>
+        <result property="t_id" column="t_id"/>
+        <result property="t_pw" column="t_pw"/>
+        <result property="t_name" column="t_name"/>
+        <result property="t_mail" column="t_mail"/>
+        <result property="t_phone" column="t_phone"/>
+        <result property="t_reg_date" column="t_reg_date"/>
+        <result property="t_part" column="t_part"/>
+    </resultMap>
+
+    <insert id="saveInstructor"  parameterType="pj.third.se.Vo.member.InstructorMemberVo">
+        INSERT INTO tbl_instructor (t_id, t_pw, t_name, t_mail, t_phone, t_reg_date, t_part)
+        VALUES (#{t_id}, #{t_pw}, #{t_name}, #{u_mail}, #{t_phone}, NOW(), #{t_part})
+    </insert>
+
+    <select id="selectMyInfo" parameterType="pj.third.se.Vo.member.InstructorMemberVo" resultMap="InstructorMemberVo">
+        SELECT * FROM tbl_instructror WHERE t_no =#{t_no}
+    </select>
+
+    <select id="selectInstructor" parameterType="pj.third.se.Vo.member.InstructorMemberVo" resultMap= "InstructorMemberVo">
+        SELECT * FROM tbl_instructor WHERE  t_id=#{t_id} AND t_pw=#{t_pw}
+    </select>
+
+    <update id="updateInstructor" parameterType="pj.third.se.Vo.member.InstructorMemberVo">
+        UPDATE tbl_instructor SET
+       t_pw=#{t_pw}, t_name=#{t_name}, t_mail=#{t_mail}, t_phone=#{t_phone}
+        WHERE t_no=#{t_no}
+    </update>
+
+    <delete id="deleteInstructor" parameterType="int">
+        DELETE FROM tbl_instructor
+               WHERE t_no=#{t_no}
+    </delete>
+
+
+
+</mapper>

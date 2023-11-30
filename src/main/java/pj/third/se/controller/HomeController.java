@@ -16,5 +16,13 @@ public class HomeController {
         nextPage = "index";
         return nextPage;
     }
+    @RequestMapping(value = "/se/join", method = {RequestMethod.GET, RequestMethod.POST})
+    public String joinType() {
+        String nextPage;
+        nextPage = "common/member/select_create_account_type";
+        return nextPage;
+
+    }
+
 
 }
