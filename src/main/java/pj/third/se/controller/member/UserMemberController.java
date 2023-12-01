@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pj.third.se.Vo.member.UserMemberVo;
+import pj.third.se.vo.member.UserMemberVo;
 import pj.third.se.service.member.UserMemberService;
 
 @Slf4j
@@ -38,13 +38,7 @@ public class UserMemberController {
     }
 
 // 로그인 관련
-    @RequestMapping(value = "/loginForm", method = {RequestMethod.POST, RequestMethod.GET})
-    public String loginForm() {
-        String nextPage;
-        System.out.println("로그인호출");
-        nextPage = "common/member/login_form";
-        return nextPage;
-    }
+
 
     @PostMapping("/loginConfirm")
     public String loginConfirm(UserMemberVo userMemberVo, HttpSession session) {

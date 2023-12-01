@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pj.third.se.Vo.member.InstructorMemberVo;
+import pj.third.se.vo.member.InstructorMemberVo;
 import pj.third.se.service.member.InstructorMemberService;
 
 @Slf4j
 @Controller
-@RequestMapping("/instructor/member/")
+@RequestMapping("/instructor/member")
 public class InstructorMemberController {
 
     @Autowired
@@ -28,6 +28,7 @@ public class InstructorMemberController {
     @PostMapping("/createAccountConfirm")
     public String createAccountConfirm(InstructorMemberVo instructorMemberVo) {
         String nextPage;
+        System.out.println("가입컨트롤러호출");
         Boolean result = instructorMemberService.createAccountConfirm(instructorMemberVo);
         log.info("result --> : {}", result);
         nextPage = "index";
@@ -35,13 +36,6 @@ public class InstructorMemberController {
     }
 
     // 로그인 관련
-    @RequestMapping(value = "/loginForm", method = {RequestMethod.POST, RequestMethod.GET})
-    public String loginForm() {
-        String nextPage;
-        System.out.println("로그인호출");
-        nextPage = "common/member/login_form";
-        return nextPage;
-    }
 
     @PostMapping("/loginConfirm")
     public String loginConfirm(InstructorMemberVo instructorMemberVo, HttpSession session) {

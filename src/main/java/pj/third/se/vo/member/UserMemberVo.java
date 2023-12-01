@@ -1,4 +1,4 @@
-package pj.third.se.Vo.member;
+package pj.third.se.vo.member;
 
 import lombok.Getter;
 import lombok.Setter;

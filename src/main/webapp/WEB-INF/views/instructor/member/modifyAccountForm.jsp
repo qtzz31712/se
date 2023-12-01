@@ -7,7 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="pj.third.se.Vo.member.UserMemberVo"%>
+<%@ page import="pj.third.se.vo.member.UserMemberVo"%>
 <html>
 <head>
     <title>Title</title>

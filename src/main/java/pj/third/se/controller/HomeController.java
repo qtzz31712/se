@@ -21,7 +21,13 @@ public class HomeController {
         String nextPage;
         nextPage = "common/member/select_create_account_type";
         return nextPage;
-
+    }
+    @RequestMapping(value = "/se/loginForm", method = {RequestMethod.POST, RequestMethod.GET})
+    public String loginForm() {
+        String nextPage;
+        System.out.println("로그인호출");
+        nextPage = "common/member/login_form";
+        return nextPage;
     }
 
 

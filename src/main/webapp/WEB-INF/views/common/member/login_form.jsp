@@ -11,10 +11,10 @@
     <title>로그인</title>
     <script type="text/javascript">
 
-        function loginForm() {
+        function userLoginForm() {
             console.log('loginForm() CALLED!!');
 
-            let form = document.login_form;
+            let form = document.user_login_form;
 
             if (form.u_id.value == '') {
                 alert('아이디를 입력하세요.');
@@ -31,17 +31,48 @@
 
         }
 
+        function instructorLoginForm() {
+            console.log('loginForm() CALLED!!');
+
+            let form = document.instructor_login_form;
+
+            if (form.t_id.value == '') {
+                alert('아이디를 입력하세요.');
+                form.t_id.focus();
+
+            } else if (form.t_pw.value == '') {
+                alert('비밀번호를 입력하세요.');
+                form.t_pw.focus();
+
+            } else {
+                form.submit();
+
+            }
+
+        }
+
     </script>
 </head>
 <body>
 <section>
-    <form action="${pageContext.request.contextPath}/instructor/member/loginConfirm" name="login_form" method="post">
+    <h2>학생 로그인</h2>
+    <form action="${pageContext.request.contextPath}/user/member/loginConfirm" name="user_login_form" method="post">
         <input type="hidden"	name="loginType" value="">
     <div>
         <input type="text"		name="u_id" 		placeholder="아이디를 입력하세요."> <br>
         <input type="password"	name="u_pw" 		placeholder="비밀번호를 입력하세요."> <br>
     </div>
-    <input type="button"	value="로그인" onclick="loginForm();">
+    <input type="button"	value="로그인" onclick="userLoginForm();">
+    </form>
+
+    <h2>강사 로그인</h2>
+    <form action="${pageContext.request.contextPath}/instructor/member/loginConfirm" name="instructor_login_form" method="post">
+        <input type="hidden"	name="loginType" value="">
+        <div>
+            <input type="text"		name="t_id" 		placeholder="아이디를 입력하세요."> <br>
+            <input type="password"	name="t_pw" 		placeholder="비밀번호를 입력하세요."> <br>
+        </div>
+        <input type="button"	value="로그인" onclick="instructorLoginForm();">
     </form>
 </section>
 </body>
