@@ -1,6 +1,6 @@
-package pj.third.se.repository.member;
+package pj.third.se.repository.instructor;
 import org.apache.ibatis.annotations.Mapper;
-import pj.third.se.vo.member.InstructorMemberVo;
+import pj.third.se.vo.instructor.InstructorMemberVo;
 
 
 @Mapper

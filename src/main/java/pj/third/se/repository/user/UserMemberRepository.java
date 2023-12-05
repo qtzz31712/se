@@ -1,7 +1,7 @@
-package pj.third.se.repository.member;
+package pj.third.se.repository.user;
 
 import org.apache.ibatis.annotations.Mapper;
-import pj.third.se.vo.member.UserMemberVo;
+import pj.third.se.vo.user.UserMemberVo;
 
 @Mapper
 public interface UserMemberRepository {

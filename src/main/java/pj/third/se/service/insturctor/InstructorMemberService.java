@@ -1,10 +1,10 @@
-package pj.third.se.service.member;
+package pj.third.se.service.insturctor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pj.third.se.vo.member.InstructorMemberVo;
-import pj.third.se.repository.member.InstructorMemberRepository;
+import pj.third.se.vo.instructor.InstructorMemberVo;
+import pj.third.se.repository.instructor.InstructorMemberRepository;
 
 @Slf4j
 @Service

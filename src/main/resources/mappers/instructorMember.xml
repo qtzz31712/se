@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="pj.third.se.repository.member.InstructorMemberRepository">
+<mapper namespace="pj.third.se.repository.instructor.InstructorMemberRepository">
 
     <!-- ResultMap -->
-    <resultMap id="InstructorMemberVoMap" type="pj.third.se.vo.member.InstructorMemberVo">
+    <resultMap id="InstructorMemberVoMap" type="pj.third.se.vo.instructor.InstructorMemberVo">
         <id property="t_no" column="t_no"/>
         <result property="t_id" column="t_id"/>
         <result property="t_pw" column="t_pw"/>
@@ -18,7 +18,7 @@
     </resultMap>
 
     <!-- INSERT Query -->
-    <insert id="saveInstructor" parameterType="pj.third.se.vo.member.InstructorMemberVo">
+    <insert id="saveInstructor" parameterType="pj.third.se.vo.instructor.InstructorMemberVo">
         INSERT INTO tbl_instructor (t_id, t_pw, t_name, t_mail, t_phone, t_reg_date, t_part)
         VALUES (#{t_id}, #{t_pw}, #{t_name}, #{t_mail}, #{t_phone}, NOW(), #{t_part})
     </insert>
@@ -29,12 +29,12 @@
     </select>
 
     <!-- SELECT Query for login -->
-    <select id="selectInstructor" parameterType="pj.third.se.vo.member.InstructorMemberVo" resultMap="InstructorMemberVoMap">
+    <select id="selectInstructor" parameterType="pj.third.se.vo.instructor.InstructorMemberVo" resultMap="InstructorMemberVoMap">
         SELECT * FROM tbl_instructor WHERE t_id=#{t_id} AND t_pw=#{t_pw}
     </select>
 
     <!-- UPDATE Query -->
-    <update id="updateInstructor" parameterType="pj.third.se.vo.member.InstructorMemberVo">
+    <update id="updateInstructor" parameterType="pj.third.se.vo.instructor.InstructorMemberVo">
         UPDATE tbl_instructor SET
                                   t_pw=#{t_pw}, t_name=#{t_name}, t_mail=#{t_mail}, t_phone=#{t_phone}
         WHERE t_no=#{t_no}

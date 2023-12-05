@@ -21,7 +21,7 @@
     </script>
 </head>
 <body>
-
+<jsp:include page="../../common/header.jsp"/>
 <section>
 
     <div id="section_wrap">

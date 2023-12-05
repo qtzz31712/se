@@ -14,6 +14,7 @@
 </head>
 <body>
 <jsp:include page="../../common/header.jsp"/>
+<section>
 <div class="my_account_form">
         <form action="${pageContext.request.contextPath}/user/member/createAccountConfirm" name="my_account_form" method="post">
             <input type="hidden" name="u_no" value="${userMemberVos.u_no}">
@@ -37,7 +38,7 @@
     <a class="modify_account" href="${pageContext.request.contextPath}/user/member/modifyAccountForm?u_no=${userMemberVos.u_no}">정보 수정</a>
     <a class="modify_account" href="${pageContext.request.contextPath}/user/member/deleteAccountConfirm?u_no=${userMemberVos.u_no}">회원 삭제</a>
 </div>
-
+</section>
 </body>
 </html>
 

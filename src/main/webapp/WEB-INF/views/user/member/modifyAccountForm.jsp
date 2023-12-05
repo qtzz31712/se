@@ -7,7 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="pj.third.se.vo.member.UserMemberVo"%>
+<%@ page import="pj.third.se.vo.user.UserMemberVo"%>
 <html>
 <head>
     <title>Title</title>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="modify_account_form">
-            <form action="${pageContext.request.contextPath}/se/user/member/modifyAccountConfirm" name="modify_account_form" method="post">
+            <form action="${pageContext.request.contextPath}/user/member/modifyAccountConfirm" name="modify_account_form" method="post">
                 <input type="hidden" name="u_no" value="${userMemberVos.u_no}">
                 <div><p>아이디</p><input type="text" name="u_id" value="${userMemberVos.u_id}" readonly></div>
                 <div><p>비밀 번호</p><input type="password" name="u_pw" value="${userMemberVos.u_pw}"> </div>

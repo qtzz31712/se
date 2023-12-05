@@ -1,4 +1,4 @@
-package pj.third.se.controller.member;
+package pj.third.se.controller.instructor;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pj.third.se.vo.member.InstructorMemberVo;
-import pj.third.se.service.member.InstructorMemberService;
+import pj.third.se.vo.instructor.InstructorMemberVo;
+import pj.third.se.service.insturctor.InstructorMemberService;
 
 @Slf4j
 @Controller

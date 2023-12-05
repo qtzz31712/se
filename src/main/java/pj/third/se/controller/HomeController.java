@@ -16,13 +16,13 @@ public class HomeController {
         nextPage = "index";
         return nextPage;
     }
-    @RequestMapping(value = "/se/join", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/join", method = {RequestMethod.GET, RequestMethod.POST})
     public String joinType() {
         String nextPage;
         nextPage = "common/member/select_create_account_type";
         return nextPage;
     }
-    @RequestMapping(value = "/se/loginForm", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/loginForm", method = {RequestMethod.POST, RequestMethod.GET})
     public String loginForm() {
         String nextPage;
         System.out.println("로그인호출");

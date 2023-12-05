@@ -15,7 +15,7 @@
 <jsp:include page="../../common/header.jsp"/>
 <section>
     <h1>정말로 회원을 탈퇴하시겠습니까?</h1>
-    <a class="delete_account" href="${pageContext.request.contextPath}/se/instructor/member/deleteAccountConfirm?u_no=${loginedInstructorMemberVo.t_no}">회원 탈퇴</a>
+    <a class="delete_account" href="${pageContext.request.contextPath}/instructor/member/deleteAccountConfirm?u_no=${loginedInstructorMemberVo.t_no}">회원 탈퇴</a>
 </section>
 </body>
 </html>

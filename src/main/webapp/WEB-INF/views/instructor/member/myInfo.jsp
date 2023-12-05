@@ -14,28 +14,20 @@
 </head>
 <body>
 <jsp:include page="../../common/header.jsp"/>
+<h3>나의 정보</h3>
 <div class="my_account_form">
-        <form action="${pageContext.request.contextPath}/se/user/member/createAccountConfirm" name="my_account_form" method="post">
-            <input type="hidden" name="u_no" value="${instructorMemberVos.u_no}">
-            <div><p>아이디</p><input type="text" name="u_id" value="${instructorMemberVos.u_id}" readonly></div>
-            <p id="idable"></p>
-            <div><p>비밀번호</p><input type="password" name="u_pw" value="${instructorMemberVos.u_pw}" readonly> </div>
-            <div><p>이름</p><input type="text" name="u_name" value="${instructorMemberVos.u_name}" readonly> </div>
-            <div><p>성별</p>
-                <select name="u_gender" disabled>
-                    <option value="">성별을 입력 하세요</option>
-                    <option value="M"  ${instructorMemberVos.u_gender == 'M' ? 'selected' : ''}>Man</option>
-                    <option value="W"  ${instructorMemberVos.u_gender == 'W' ? 'selected' : ''}>Woman</option>
-                </select>
-                <div><p>이메일</p><input type="email" name="u_mail"	value="${instructorMemberVos.u_mail}" readonly></div>
-                <div><p>휴대폰 번호</p><input type="text" name="u_phone"	value="${instructorMemberVos.u_phone}" readonly></div>
-                <div><p>생년 월일</p><input type="text" name="u_birth"	value="${instructorMemberVos.u_birth}" readonly></div>
-            </div>
-        </form>
+    <form action="${pageContext.request.contextPath}/instructor/member/createAccountConfirm"
+          name="create_account_form" method="post">
+        <div><p>아이디</p><input type="text" name="t_id" placeholder="아이디를 입력하세요." value="${instructorMemberVos.t_id}" readonly> <br></div>
+        <p id="idable"></p>
+        <div><p>이름</p><input type="text" name="t_name" placeholder="이름을 입력하세요." value="${instructorMemberVos.t_name}" readonly> <br></div>
+        <div><p>이메일</p><input type="email" name="t_mail" placeholder="이메일을 입력하세요." value="${instructorMemberVos.t_mail}" readonly><br></div>
+        <div><p>휴대폰 번호</p><input type="text" name="t_phone" placeholder="휴대폰 번호 '-'제외하고 입력하세요."value="${instructorMemberVos.t_phone}" readonly> <br></div>
+        <div><p>담당 과목</p><input type="text" name="t_part" placeholder="담당과목을 입력하세요."value="${instructorMemberVos.t_part}" readonly> <br></div>
+    </form>
 
-
-    <a class="modify_account" href="${pageContext.request.contextPath}/se/user/member/modifyAccountForm?u_no=${instructorMemberVos.u_no}">정보 수정</a>
-    <a class="modify_account" href="${pageContext.request.contextPath}/se/user/member/deleteAccountConfirm?u_no=${instructorMemberVos.u_no}">회원 삭제</a>
+    <a class="modify_account" href="${pageContext.request.contextPath}/instructor/member/modifyAccountForm?t_no=${instructorMemberVos.t_no}">정보 수정</a>
+    <a class="modify_account" href="${pageContext.request.contextPath}/instructor/member/deleteAccountConfirm?t_no=${instructorMemberVos.t_no}">회원 삭제</a>
 </div>
 
 </body>
