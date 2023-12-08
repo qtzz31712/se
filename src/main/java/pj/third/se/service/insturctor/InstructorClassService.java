@@ -18,7 +18,7 @@ public class InstructorClassService {
         return instructorClassRepository.saveClassInfo(classInfoVo);
     }
 
-    public List<ClassInfoVo> listMyClass(String cls_t_no) {
+    public List<ClassInfoVo> listMyClass(int cls_t_no) {
 return instructorClassRepository.listMyClass(cls_t_no);
     }
 }

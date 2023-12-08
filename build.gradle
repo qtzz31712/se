@@ -37,6 +37,7 @@ dependencies {
     implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '10.1.0-M15'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.session:spring-session-core'
 }
 
 tasks.named('bootBuildImage') {

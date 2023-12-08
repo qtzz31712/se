@@ -23,9 +23,10 @@
         VALUES (#{cls_title}, #{cls_i_no}, #{cls_size}, NOW(), #{cls_textbook}, #{cls_sub}, #{cls_sample})
     </insert>
 
-    <select id="listMyClass" parameterType="String" resultMap="classInfoVo">
+    <select id="listMyClass" parameterType="int" resultMap="classInfoVo">
         SELECT * FROM tbl_class_info
         WHERE cls_t_no=#{cls_t_no}
+        ORDER BY cls_reg_date DESC
     </select>
 
 </mapper>

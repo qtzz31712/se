@@ -10,6 +10,6 @@ public interface InstructorClassRepository {
 
     int saveClassInfo(ClassInfoVo classInfoVo);
 
-    List<ClassInfoVo>listMyClass(String cls_t_no);
+    List<ClassInfoVo>listMyClass(int cls_t_no);
 
 }

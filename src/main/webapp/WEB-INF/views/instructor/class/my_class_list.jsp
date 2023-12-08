@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>개설 강좌</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <jsp:include page="../../common/header.jsp"/>
@@ -21,23 +22,23 @@
 
 </section>
 <script>
-    let ar_t_no = ${cls_t_no}
-        console.log(ar_t_no)
-    classList(ar_t_no);
-    function classList(cls_t_no){
+    let cls_t_no = '${cls_t_no}';
+    console.log(cls_t_no);
+    classList(cls_t_no);
+    function classList(cls_t_no) {
         jQuery.ajax({
-            url : "${pageContext.request.contextPath}/instructor/class/myClassList/"+t_u_no,
-            type : "GET",
-            contentType : 'application/json; charset=utf-8', // 서버로 데이터를 보내는 형식
-            success : function(rdata) {
-                console.log(rdata)
-                jQuery('.MyClassList').html(rdata);
+            url: "${pageContext.request.contextPath}/instructor/class/listUpClass/" + cls_t_no,
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            success: function (rdata) {
+                console.log(rdata);
+                jQuery('.myClassList').html(rdata);
             },
-            error : function(error) {
-                alert(error)
+            error: function (error) {
+                alert(error);
             }
         })
-    }
+      }
 </script>
 </body>
 </html>

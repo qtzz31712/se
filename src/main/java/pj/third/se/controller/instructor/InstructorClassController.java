@@ -42,15 +42,15 @@ public class InstructorClassController {
     }
 
     @RequestMapping(value = "/myClassList", method = {RequestMethod.GET, RequestMethod.POST})
-    public String listMyClassList(@RequestParam("cls_t_no") String cls_t_no, Model model) {
+    public String listMyClassList(@RequestParam("cls_t_no") int cls_t_no, Model model) {
         model.addAttribute("cls_t_no", cls_t_no);
         String nextPage;
         nextPage = "instructor/class/my_class_list";
         return nextPage;
     }
 
-    @RequestMapping(value = "/instructor/listUpClass/{cls_t_no}", method = {RequestMethod.GET, RequestMethod.POST})
-    public String listUpClass(@PathVariable("cls_t_no") String cls_t_no, Model model) {
+    @RequestMapping(value = "/listUpClass/{cls_t_no}", method = {RequestMethod.GET, RequestMethod.POST})
+    public String listUpClass(@PathVariable("cls_t_no") int cls_t_no, Model model) {
         log.info("cls_t_no --> {}:", cls_t_no);
         List<ClassInfoVo> classInfoVos = instructorClassService.listMyClass(cls_t_no);
         model.addAttribute("classInfoVos", classInfoVos);
