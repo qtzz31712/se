@@ -15,6 +15,15 @@
         <result property="cls_sub" column="cls_sub"/>
         <result property="cls_sample" column="cls_sample"/>
         <result property="cls_approval" column="cls_approval"/>
+        <association property="instructorMemberVo" javaType="pj.third.se.vo.instructor.InstructorMemberVo">
+            <id property="t_no" column="t_no"/>
+            <result property="t_id" column="t_id"/>
+            <result property="t_name" column="t_name"/>
+            <result property="t_mail" column="t_mail"/>
+            <result property="t_phone" column="t_phone"/>
+
+        </association>
+
     </resultMap>
 
     <select id="listUpAllClass" resultMap="classInfoVo">

@@ -31,6 +31,7 @@ public class UserClassController {
     public String listUpAllClass(Model model) {
         List <ClassInfoVo> classInfoVos = userClassService.listUpAllClass();
         model.addAttribute("classInfoVos", classInfoVos);
+        log.info("classInfoVos.instructorMemberVo.t_name --> {}:", classInfoVos);
         return "user/class/all_class";
     }
 }
