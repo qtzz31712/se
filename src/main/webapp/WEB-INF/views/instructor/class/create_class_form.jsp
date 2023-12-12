@@ -38,7 +38,7 @@
 <jsp:include page="../../common/header.jsp"/>
 <section>
 <form action="${pageContext.request.contextPath}/instructor/class/createClassConfirm" name="create_class_form" method="post">
-    <input type="text" name="cls_i_no" value="${loginedInstructorMemberVo.t_no}">
+    <input type="text" name="cls_t_no" value="${loginedInstructorMemberVo.t_no}">
     강의 제목<input type="text" name="cls_title" placeholder="강의 제목을 입력 하세요">
     강의 회차<input type="number" name="cls_size" placeholder="강의 총 회차를 입력 하세요">
     사용 교재<input type="text" name="cls_textbook" placeholder="사용 교재를 입력 하세요" >

@@ -12,4 +12,9 @@ public interface InstructorClassRepository {
 
     List<ClassInfoVo>listMyClass(int cls_t_no);
 
+    ClassInfoVo classInfoDetail(int cls_no);
+
+    int modifyClassConfirm(ClassInfoVo classInfoVo);
+
+    void toggleApproval(int cls_no, int cls_approval);
 }

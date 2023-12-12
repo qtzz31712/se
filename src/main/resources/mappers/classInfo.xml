@@ -5,28 +5,52 @@
 
 <mapper namespace="pj.third.se.repository.instructor.InstructorClassRepository">
 
-    <!-- ResultMap -->
     <resultMap id="classInfoVo" type="pj.third.se.vo.instructor.ClassInfoVo">
         <id property="cls_no" column="cls_no"/>
         <result property="cls_title" column="cls_title"/>
-        <result property="cls_i_no" column="cls_i_no"/>
+        <result property="cls_t_no" column="cls_t_no"/>
         <result property="cls_size" column="cls_size"/>
         <result property="cls_reg_date" column="cls_reg_date"/>
         <result property="cls_textbook" column="cls_textbook"/>
         <result property="cls_sub" column="cls_sub"/>
         <result property="cls_sample" column="cls_sample"/>
+        <result property="cls_approval" column="cls_approval"/>
     </resultMap>
 
     <insert id="saveClassInfo" parameterType="pj.third.se.vo.instructor.ClassInfoVo">
         INSERT INTO tbl_class_info
-        (cls_title, cls_i_no, cls_size, cls_reg_date, cls_textbook, cls_sub, cls_sample)
-        VALUES (#{cls_title}, #{cls_i_no}, #{cls_size}, NOW(), #{cls_textbook}, #{cls_sub}, #{cls_sample})
+        (cls_title, cls_t_no, cls_size, cls_reg_date, cls_textbook, cls_sub, cls_sample, cls_approval)
+        VALUES (#{cls_title}, #{cls_t_no}, #{cls_size}, NOW(), #{cls_textbook}, #{cls_sub}, #{cls_sample}, false)
     </insert>
 
     <select id="listMyClass" parameterType="int" resultMap="classInfoVo">
-        SELECT * FROM tbl_class_info
-        WHERE cls_t_no=#{cls_t_no}
+        SELECT *
+        FROM tbl_class_info
+        WHERE cls_t_no = #{cls_t_no}
         ORDER BY cls_reg_date DESC
     </select>
 
+    <select id="classInfoDetail" parameterType="int" resultMap="classInfoVo">
+        SELECT *
+        FROM tbl_class_info
+        WHERE cls_no = #{cls_no}
+    </select>
+
+    <update id="modifyClassConfirm" parameterType="pj.third.se.vo.instructor.ClassInfoVo">
+        UPDATE tbl_class_info
+        SET cls_title=#{cls_title},
+            cls_size=#{cls_size},
+            cls_textbook=#{cls_textbook},
+            cls_sub=#{cls_sub},
+            cls_sample=#{cls_sample}
+        WHERE cls_no = #{cls_no}
+    </update>
+
+    <update id="toggleApproval" parameterType="int">
+        UPDATE tbl_class_info
+        SET cls_approval=#{cls_approval}
+        WHERE cls_no = #{cls_no}
+    </update>
 </mapper>
+
+

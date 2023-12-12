@@ -19,6 +19,19 @@ public class InstructorClassService {
     }
 
     public List<ClassInfoVo> listMyClass(int cls_t_no) {
-return instructorClassRepository.listMyClass(cls_t_no);
+        return instructorClassRepository.listMyClass(cls_t_no);
+    }
+
+
+    public ClassInfoVo classInfoDetail(int cls_no) {
+        return instructorClassRepository.classInfoDetail(cls_no);
+    }
+
+    public int modifyClassConfirm(ClassInfoVo classInfoVo) {
+    return instructorClassRepository.modifyClassConfirm(classInfoVo);
+    }
+
+    public void toggleApproval(int cls_no, int cls_approval) {
+        instructorClassRepository.toggleApproval(cls_no, cls_approval);
     }
 }

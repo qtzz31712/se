@@ -41,6 +41,7 @@ public class InstructorClassController {
         return nextPage;
     }
 
+    //내가 개설한 강의
     @RequestMapping(value = "/myClassList", method = {RequestMethod.GET, RequestMethod.POST})
     public String listMyClassList(@RequestParam("cls_t_no") int cls_t_no, Model model) {
         model.addAttribute("cls_t_no", cls_t_no);
@@ -49,12 +50,46 @@ public class InstructorClassController {
         return nextPage;
     }
 
+ 
     @RequestMapping(value = "/listUpClass/{cls_t_no}", method = {RequestMethod.GET, RequestMethod.POST})
     public String listUpClass(@PathVariable("cls_t_no") int cls_t_no, Model model) {
         log.info("cls_t_no --> {}:", cls_t_no);
         List<ClassInfoVo> classInfoVos = instructorClassService.listMyClass(cls_t_no);
         model.addAttribute("classInfoVos", classInfoVos);
         return "instructor/class/class_list";
+    }
+
+    //강의정보 상세
+    @RequestMapping(value = "/classInfoDetail", method = {RequestMethod.GET, RequestMethod.POST})
+    public String classInfoDetail(@RequestParam("cls_no") int cls_no, Model model) {
+        log.info("cls_no --> {}:", cls_no);
+        ClassInfoVo classInfoVos = instructorClassService.classInfoDetail(cls_no);
+        model.addAttribute("classInfoVos", classInfoVos);
+        log.info("classInfoVos --> {}:", classInfoVos);
+        return "instructor/class/class_detail";
+    }
+
+    //강의 수정
+    @PostMapping("/modifyClassForm")
+    public String modifyClassForm(@RequestParam("cls_no") int cls_no, Model model) {
+        ClassInfoVo classInfoVos = instructorClassService.classInfoDetail(cls_no);
+        model.addAttribute("classInfoVos", classInfoVos);
+        return "instructor/class/modify_class_form";
+    }
+
+    @PostMapping("/modifyClassConfirm")
+    public String modifyClassConfirm(ClassInfoVo classInfoVo) {
+        log.info("classInfoVo--> {}", classInfoVo);
+        int result = instructorClassService.modifyClassConfirm(classInfoVo);
+        return "redirect:/instructor/class/myClassList?cls_t_no=" + classInfoVo.getCls_t_no();
+    }
+
+    //수강신청 승인상태
+    @PostMapping("/toggleApproval")
+    @ResponseBody
+    public void toggleApproval(@RequestParam("cls_no") int cls_no,@RequestParam("cls_approval") int cls_approval) {
+        log.info("cls_approval --> {}", cls_approval);
+        instructorClassService.toggleApproval(cls_no, cls_approval);
     }
 
 
