@@ -13,6 +13,7 @@
 </head>
 <body>
 <jsp:include page="../../common/header.jsp"/>
+<jsp:include page="../../common/nav.jsp"/>
 <section>
     <form action="${pageContext.request.contextPath}/instructor/class/modifyClassForm" name="class_info_form"
           method="post">
@@ -21,7 +22,7 @@
         강의 제목<input type="text" name="cls_title" placeholder="강의 제목을 입력 하세요" value="${classInfoVos.cls_title}" readonly>
         강의 회차<input type="number" name="cls_size" placeholder="강의 총 회차를 입력 하세요" value="${classInfoVos.cls_size}"
                     readonly>
-        강상 <input type="text" name="cls_instructor" value=""
+        강상 <input type="text" name="cls_instructor" value="">
         사용 교재<input type="text" name="cls_textbook" placeholder="사용 교재를 입력 하세요" value="${classInfoVos.cls_textbook}"
                     readonly>
         강의 요약<textarea name="cls_sub" placeholder="강의 설명및 요약을 작성 하세요" readonly>${classInfoVos.cls_sub}</textarea>
@@ -29,8 +30,7 @@
         <video>
             <source src="${classInfoVos.cls_sample}" type="video/mp4">
         </video>
-        <button type="submit" name="create_class">강의 수정</button>
-        <button type="button" name="delete_class">강의 삭제</button>
+<a href="${pageContext.request.contextPath}/user/class/registerClassForm">수강 신청하기</a>
     </form>
 </section>
 </body>

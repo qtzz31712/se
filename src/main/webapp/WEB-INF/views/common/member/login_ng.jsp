@@ -11,6 +11,8 @@
     <title>Title</title>
 </head>
 <body>
+<jsp:include page="../header.jsp"/>
+<jsp:include page="../nav.jsp"/>
 <h1>로그인에 실패 하셨습니다.</h1>
 </body>
 </html>

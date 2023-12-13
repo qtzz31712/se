@@ -13,6 +13,7 @@
 </head>
 <body>
 <jsp:include page="../../common/header.jsp"/>
+<jsp:include page="../../common/nav.jsp"/>
 <section>
     <form action="${pageContext.request.contextPath}/instructor/class/modifyClassForm" name="class_info_form"
           method="post">

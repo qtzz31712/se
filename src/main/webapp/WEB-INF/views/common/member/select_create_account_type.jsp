@@ -11,7 +11,11 @@
     <title>Title</title>
 </head>
 <body>
+<jsp:include page="../header.jsp"/>
+<jsp:include page="../nav.jsp"/>
+<section>
 <a href="${pageContext.request.contextPath}/user/member/createAccount">일반 회원 가입</a>
 <a href="${pageContext.request.contextPath}/instructor/member/createAccount">강사 회원 가입</a>
+</section>
 </body>
 </html>

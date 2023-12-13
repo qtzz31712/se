@@ -12,6 +12,7 @@
 </head>
 <body>
 <jsp:include page="../../common/header.jsp"/>
+<jsp:include page="../../common/nav.jsp"/>
 
 <h1>강의 생성 실패</h1>
 <a href="${pageContext.request.contextPath}/se">홈으로</a>

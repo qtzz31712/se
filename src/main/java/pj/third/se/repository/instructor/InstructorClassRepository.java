@@ -2,6 +2,7 @@ package pj.third.se.repository.instructor;
 
 import org.apache.ibatis.annotations.Mapper;
 import pj.third.se.vo.instructor.ClassInfoVo;
+import pj.third.se.vo.user.RegisterClassVo;
 
 import java.util.List;
 
@@ -17,4 +18,8 @@ public interface InstructorClassRepository {
     int modifyClassConfirm(ClassInfoVo classInfoVo);
 
     void toggleApproval(int cls_no, int cls_approval);
+
+    List<RegisterClassVo> listUpHopeUser(int t_no);
+
+    RegisterClassVo selectHopeUser(int rc_no);
 }

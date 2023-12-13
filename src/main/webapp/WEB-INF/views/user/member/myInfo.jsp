@@ -14,6 +14,7 @@
 </head>
 <body>
 <jsp:include page="../../common/header.jsp"/>
+<jsp:include page="../../common/nav.jsp"/>
 <section>
 <div class="my_account_form">
         <form action="${pageContext.request.contextPath}/user/member/createAccountConfirm" name="my_account_form" method="post">

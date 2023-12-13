@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>강의 등록</title>
+
 <script>
     function createClass() {
         console.log("강의생성 호출")
@@ -36,6 +37,7 @@
 </head>
 <body>
 <jsp:include page="../../common/header.jsp"/>
+<jsp:include page="../../common/nav.jsp"/>
 <section>
 <form action="${pageContext.request.contextPath}/instructor/class/createClassConfirm" name="create_class_form" method="post">
     <input type="text" name="cls_t_no" value="${loginedInstructorMemberVo.t_no}">

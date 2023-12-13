@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import pj.third.se.service.insturctor.InstructorClassService;
 import pj.third.se.service.insturctor.InstructorMemberService;
 import pj.third.se.vo.instructor.ClassInfoVo;
+import pj.third.se.vo.user.RegisterClassVo;
 
+import java.security.PublicKey;
 import java.util.List;
 
 
@@ -84,12 +86,32 @@ public class InstructorClassController {
         return "redirect:/instructor/class/myClassList?cls_t_no=" + classInfoVo.getCls_t_no();
     }
 
-    //수강신청 승인상태
+    //수강신청 가능상태
     @PostMapping("/toggleApproval")
     @ResponseBody
     public void toggleApproval(@RequestParam("cls_no") int cls_no,@RequestParam("cls_approval") int cls_approval) {
         log.info("cls_approval --> {}", cls_approval);
         instructorClassService.toggleApproval(cls_no, cls_approval);
+    }
+
+    // 수강 신청 희망 인원 승인
+    @GetMapping("/hopeRegisterClassUser")
+    public String hopeRegisterCourseUser() {
+        return "instructor/class/hope_register_class_user_form";
+    }
+
+    @RequestMapping(value = "/listUpHopeUser/{t_no}", method= {RequestMethod.GET, RequestMethod.POST })
+    public String listUpHopeUser(@PathVariable("t_no") int t_no, Model model) {
+        List<RegisterClassVo> registerClassVos = instructorClassService.listUpHopeUser(t_no);
+        model.addAttribute("registerClassVos", registerClassVos);
+        return "instructor/class/hope_register_class_user";
+    }
+
+    @GetMapping("/registerUserDetail")
+    public String selectHopeUser(@RequestParam("rc_no") int rc_no, Model model) {
+     RegisterClassVo registerClassVos = instructorClassService.selectHopeUser(rc_no);
+     model.addAttribute("registerClassVos", registerClassVos);
+     return "instructor/class/hope_user_detail";
     }
 
 

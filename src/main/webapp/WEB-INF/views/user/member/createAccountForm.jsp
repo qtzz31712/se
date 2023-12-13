@@ -22,6 +22,7 @@
 </head>
 <body>
 <jsp:include page="../../common/header.jsp"/>
+<jsp:include page="../../common/nav.jsp"/>
 <section>
 
     <div id="section_wrap">

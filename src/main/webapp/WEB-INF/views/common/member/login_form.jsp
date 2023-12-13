@@ -54,6 +54,8 @@
     </script>
 </head>
 <body>
+<jsp:include page="../header.jsp"/>
+<jsp:include page="../nav.jsp"/>
 <section>
     <h2>학생 로그인</h2>
     <form action="${pageContext.request.contextPath}/user/member/loginConfirm" name="user_login_form" method="post">

@@ -17,6 +17,40 @@
         <result property="cls_approval" column="cls_approval"/>
     </resultMap>
 
+    <resultMap id="registerClassVo" type="pj.third.se.vo.user.RegisterClassVo">
+        <id property="rc_no" column="rc_no"/>
+        <result property="rc_cls_no" column="rc_cls_no"/>
+        <result property="rc_u_no" column="rc_u_no"/>
+        <result property="rc_reg_time" column="rc_reg_time"/>
+        <result property="rc_sub" column="rc_sub"/>
+        <result property="rc_approval" column="rc_approval"/>
+        <association property="userMemberVo" javaType="pj.third.se.vo.user.UserMemberVo">
+            <id property="u_no" column="u_no"/>
+            <result property="u_id" column="u_id"/>
+            <result property="u_name" column="u_name"/>
+            <result property="u_mail" column="u_mail"/>
+            <result property="u_phone" column="u_phone"/>
+        </association>
+        <association property="classInfoVo" javaType="pj.third.se.vo.instructor.ClassInfoVo">
+            <id property="cls_no" column="cls_no"/>
+            <result property="cls_title" column="cls_title"/>
+            <result property="cls_t_no" column="cls_t_no"/>
+            <result property="cls_size" column="cls_size"/>
+            <result property="cls_reg_date" column="cls_reg_date"/>
+            <result property="cls_textbook" column="cls_textbook"/>
+            <result property="cls_sub" column="cls_sub"/>
+            <result property="cls_sample" column="cls_sample"/>
+            <result property="cls_approval" column="cls_approval"/>
+            <association property="instructorMemberVo" javaType="pj.third.se.vo.instructor.InstructorMemberVo">
+                <id property="t_no" column="t_no"/>
+                <result property="t_id" column="t_id"/>
+                <result property="t_name" column="t_name"/>
+                <result property="t_mail" column="t_mail"/>
+                <result property="t_phone" column="t_phone"/>
+            </association>
+        </association>
+    </resultMap>
+
     <insert id="saveClassInfo" parameterType="pj.third.se.vo.instructor.ClassInfoVo">
         INSERT INTO tbl_class_info
         (cls_title, cls_t_no, cls_size, cls_reg_date, cls_textbook, cls_sub, cls_sample, cls_approval)
@@ -51,6 +85,24 @@
         SET cls_approval=#{cls_approval}
         WHERE cls_no = #{cls_no}
     </update>
+
+<!--    수강 신청관련-->
+    <select id="listUpHopeUser" parameterType="int" resultMap="registerClassVo">
+        SELECT RC.*, U.*,CLS.*
+        FROM tbl_register_class as RC
+        INNER JOIN  tbl_user as U ON RC.rc_u_no= U.u_no
+        INNER JOIN tbl_class_info as CLS ON RC.rc_cls_no = CLS.cls_no
+        WHERE CLS.cls_t_no = #{t_no}
+    </select>
+
+    <select id="selectHopeUser" parameterType="int" resultMap="registerClassVo">
+        SELECT RC.*, U.*,CLS.*
+        FROM tbl_register_class as RC
+                 INNER JOIN  tbl_user as U ON RC.rc_u_no= U.u_no
+                 INNER JOIN tbl_class_info as CLS ON RC.rc_cls_no = CLS.cls_no
+        WHERE RC.rc_no = #{rc_no}
+    </select>
+
 </mapper>
 
 

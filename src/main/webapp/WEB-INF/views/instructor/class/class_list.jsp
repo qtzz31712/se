@@ -3,12 +3,12 @@
 <c:set var="isEmpty" value="${empty classInfoVos}" />
 <script>
     function toggleApproval(cls_no, cls_approval) {
-        if (cls_approval === false){
+        if (cls_approval === 1){
             cls_approval = 0;
         } else {
             cls_approval = 1;
         }
-        let newApproval = (cls_approval === 0) ? 1 : 0;
+        let newApproval = cls_approval;
         console.log(newApproval)
         $.ajax({
             type: 'POST',
@@ -48,7 +48,7 @@
                         <td><a href="${pageContext.request.contextPath}/instructor/class/classInfoDetail?cls_no=${item.cls_no}">${item.cls_title}</a></td>
                         <td >${item.cls_reg_date}</td>
                         <td><c:choose>
-                            <c:when test="${item.cls_approval}">
+                            <c:when test="${item.cls_approval == 1}">
                                 수강 신청 가능
                             </c:when>
                             <c:otherwise>

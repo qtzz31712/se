@@ -24,11 +24,12 @@
                         <td>${item.cls_reg_date}</td>
                         <td>
                             <c:choose>
-                                <c:when test="${item.cls_approval}">
-                                    수강 신청 가능
+                                <c:when test="${item.cls_approval == 1}">
+                                    <p>수강 신청 가능</p>
+                                    <a href="${pageContext.request.contextPath}/user/class/registerClassForm?cls_no=${item.cls_no}"> 수강 신청하기 </a>
                                 </c:when>
                                 <c:otherwise>
-                                    수강 신청 불가
+                                    <p>수강 신청 불가</p>
                                 </c:otherwise>
                             </c:choose>
                         </td>

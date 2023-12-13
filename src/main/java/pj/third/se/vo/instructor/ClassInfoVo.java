@@ -14,6 +14,6 @@ public class ClassInfoVo {
     String cls_textbook;
     String cls_sub;
     String cls_sample;
-    boolean cls_approval;
+    int cls_approval;
     InstructorMemberVo instructorMemberVo;
 }

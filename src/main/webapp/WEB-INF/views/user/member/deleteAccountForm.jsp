@@ -13,6 +13,7 @@
 </head>
 <body>
 <jsp:include page="../../common/header.jsp"/>
+<jsp:include page="../../common/nav.jsp"/>
 <section>
     <h1>정말로 회원을 탈퇴하시겠습니까?</h1>
     <a class="delete_account" href="${pageContext.request.contextPath}/se/user/member/deleteAccountConfirm?u_no=${loginedUserMemberVo.u_no}">회원 탈퇴</a>
