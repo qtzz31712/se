@@ -14,6 +14,7 @@
 </head>
 <body>
 <jsp:include page="../../common/header.jsp"/>
+<jsp:include page="../../common/nav.jsp"/>
 <section>
     <p>개설 중인 강의 목록</p>
     <div class="myClassList">

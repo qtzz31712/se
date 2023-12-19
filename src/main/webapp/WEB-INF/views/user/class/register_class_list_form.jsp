@@ -17,13 +17,14 @@
 <section>
     <h2>수강신청리스트</h2>
     <div class="register_class_list"></div>
+
 </section>
 <script>
     const u_no = "${loginedUserMemberVo.u_no}";
-    function AllClassList(u_no){
+    function AllClassList(u_no) {
         console.log(u_no);
         jQuery.ajax({
-            url: "${pageContext.request.contextPath}/user/class/listUpRegisterClass/"+ u_no,
+            url: "${pageContext.request.contextPath}/user/class/listUpRegisterClass/" + u_no,
             type: "GET",
             contentType: 'application/json; charset=utf-8',
             success: function (rdata) {
@@ -35,7 +36,27 @@
             }
         })
     }
+
     AllClassList(u_no);
+
+    function delete_btn(rc_no) {
+        var confirmDelete = confirm("수강신청을 취소하겠습니까?");
+        if (confirmDelete) {
+            window.location.href = "/user/class/deleteRegisterClass/" + rc_no
+        } else {
+            return false;
+        }
+        AllClassList(u_no);
+    }
+
 </script>
+
+<script>
+        let message = "${message}";
+        if (message !== "") {
+            alert(message);
+        }
+</script>
+
 </body>
 </html>

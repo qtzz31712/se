@@ -36,13 +36,13 @@
     <p>${classInfoVos.cls_title}</p>
     <h3>강사</h3>
     <p>${classInfoVos.instructorMemberVo.t_name}</p>
-    <h3></h3>
+    <h3>강의 횟차</h3>
     <p>총 ${classInfoVos.cls_size}회</p>
     <h3>강의 내용</h3>
     <div>${classInfoVos.cls_sub}</div>
     <form action="${pageContext.request.contextPath}/user/class/registerClassConfirm" name="register_class_form" method="post">
         <input type="text" name="rc_cls_no" value="${classInfoVos.cls_no}">
-        <input type="text" name="rc_u_no" value="${loginedUserMemberVo.u_no}">
+        <input type="hidden" name="rc_u_no" value="${loginedUserMemberVo.u_no}">
         <input type="hidden" name="rc_cls_approval" value="${classInfoVos.cls_approval}">
         <label>신청 목적</label>
         <textarea name="rc_sub" placeholder="신청 목적및 이유를 작성 하세요"></textarea>

@@ -66,7 +66,8 @@
 
     <select id="classInfoDetail" parameterType="int" resultMap="classInfoVo">
         SELECT *
-        FROM tbl_class_info
+        FROM tbl_class_info AS cls
+        inner join tbl_instructor As t on t.t_no=cls.cls_t_no
         WHERE cls_no = #{cls_no}
     </select>
 

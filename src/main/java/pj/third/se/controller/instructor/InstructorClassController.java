@@ -107,7 +107,7 @@ public class InstructorClassController {
         return "instructor/class/hope_register_class_user";
     }
 
-    @GetMapping("/registerUserDetail")
+    @GetMapping("/hopeUserDetail")
     public String selectHopeUser(@RequestParam("rc_no") int rc_no, Model model) {
      RegisterClassVo registerClassVos = instructorClassService.selectHopeUser(rc_no);
      model.addAttribute("registerClassVos", registerClassVos);

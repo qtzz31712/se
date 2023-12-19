@@ -14,6 +14,7 @@ int rc_u_no;
 String rc_reg_time;
 String rc_sub;
 int rc_approval;
+int checkDuplicate;
 UserMemberVo userMemberVo;
 ClassInfoVo classInfoVo;
 

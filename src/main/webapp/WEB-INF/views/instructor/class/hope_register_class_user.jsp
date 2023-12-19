@@ -21,7 +21,7 @@
                     <td>${loop.index + 1}</td>
                     <td>${item.classInfoVo.cls_title}</td>
                     <td>${item.classInfoVo.cls_reg_date}</td>
-                    <td><a href="${pageContext.request.contextPath}/instructor/class/registerUserDetail?rc_no=${item.rc_no}">${item.userMemberVo.u_name}</a></td>
+                    <td><a href="${pageContext.request.contextPath}/instructor/class/hopeUserDetail?rc_no=${item.rc_no}">${item.userMemberVo.u_name}</a></td>
                     <td >${item.rc_reg_time}</td>
                     <td><c:choose>
                         <c:when test="${item.rc_approval == 1}">

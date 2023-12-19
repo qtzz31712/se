@@ -13,7 +13,11 @@ public interface UserClassRepository {
 
     ClassInfoVo classInfoDetail(int cls_no);
 
-    void saveRegisterClass(RegisterClassVo registerClassVo);
+    int saveRegisterClass(RegisterClassVo registerClassVo);
 
     List<RegisterClassVo> listUpRegisterClass(int u_no);
+
+    int checkDuplicate(int cls_no, int u_no);
+
+    int deleteRegisterClass(int rc_no);
 }

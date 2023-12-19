@@ -13,6 +13,7 @@
                     <th>강사</th>
                     <th>개설 일자</th>
                     <th>수강 신청 가능 여부</th>
+                    <th>수강신청</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -26,13 +27,22 @@
                             <c:choose>
                                 <c:when test="${item.cls_approval == 1}">
                                     <p>수강 신청 가능</p>
-                                    <a href="${pageContext.request.contextPath}/user/class/registerClassForm?cls_no=${item.cls_no}"> 수강 신청하기 </a>
+
                                 </c:when>
                                 <c:otherwise>
                                     <p>수강 신청 불가</p>
                                 </c:otherwise>
                             </c:choose>
                         </td>
+                        <td>
+                            <c:choose>
+                            <c:when test="${item.cls_approval == 1}">
+                                <a href="${pageContext.request.contextPath}/user/class/registerClassForm?cls_no=${item.cls_no}&u_no=${loginedUserMemberVo.getU_no()}"> 수강 신청</a></td>
+                        </c:when>
+                        <c:otherwise>
+                            <p>-</p>
+                        </c:otherwise>
+                        </c:choose>
                     </tr>
                 </c:forEach>
                 </tbody>

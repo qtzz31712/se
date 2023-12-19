@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 public class UserClassService {
 
+
     @Autowired
     UserClassRepository userClassRepository;
 
@@ -22,11 +23,21 @@ public class UserClassService {
     return userClassRepository.classInfoDetail(cls_no);
     }
 
-    public void registerClassConfirm(RegisterClassVo registerClassVo) {
-        userClassRepository.saveRegisterClass(registerClassVo);
+    public int registerClassConfirm(RegisterClassVo registerClassVo) {
+        return userClassRepository.saveRegisterClass(registerClassVo);
     }
 
     public List<RegisterClassVo> listUpRegisterClass(int u_no) {
         return userClassRepository.listUpRegisterClass(u_no);
     }
+
+    public int checkDuplicate(int cls_no, int u_no) {
+    return userClassRepository.checkDuplicate(cls_no,u_no);
+    }
+
+    public int deleteRegisterClass(int rc_no) {
+        return userClassRepository.deleteRegisterClass(rc_no);
+    }
+
+
 }

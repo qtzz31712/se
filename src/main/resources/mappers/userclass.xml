@@ -68,16 +68,24 @@
 
     <select id="classInfoDetail" resultMap="classInfoVo">
         SELECT *
-        FROM tbl_class_info
+        FROM tbl_class_info A
+        INNER JOIN tbl_instructor B ON A.cls_t_no = B.t_no
         WHERE cls_no = #{cls_no}
     </select>
 
 <!--    수강신청 관련-->
 
     <insert id="saveRegisterClass" parameterType="pj.third.se.vo.user.RegisterClassVo">
-        INSERT INTO tbl_register_class
-        (rc_cls_no, rc_u_no, rc_reg_time, rc_sub, rc_approval)
-        VALUES (#{rc_cls_no}, #{rc_u_no}, now(), #{rc_sub}, -1)
+        <selectKey keyProperty="checkDuplicate" resultType="int" order="BEFORE">
+            SELECT COUNT(*)
+            FROM tbl_register_class
+            WHERE rc_cls_no = #{rc_cls_no} AND rc_u_no = #{rc_u_no}
+        </selectKey>
+        <if test="checkDuplicate == 0">
+            INSERT INTO tbl_register_class
+            (rc_cls_no, rc_u_no, rc_reg_time, rc_sub, rc_approval)
+            VALUES (#{rc_cls_no}, #{rc_u_no}, now(), #{rc_sub}, -1)
+        </if>
     </insert>
 
     <select id="listUpRegisterClass" parameterType="int" resultMap="registerClassVo">
@@ -87,6 +95,19 @@
                  INNER JOIN tbl_instructor AS T ON CLS.cls_t_no = T.t_no
         WHERE RC.rc_u_no = #{u_no}
     </select>
+
+    <select id="checkDuplicate" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+            FROM tbl_register_class
+               WHERE rc_u_no = #{u_no} AND rc_cls_no = #{cls_no}
+    </select>
+
+    <delete id="deleteRegisterClass" parameterType="int">
+        DELETE
+        FROM tbl_register_class
+        WHERE rc_no =
+              #{rc_no}
+    </delete>
 
 </mapper>
 

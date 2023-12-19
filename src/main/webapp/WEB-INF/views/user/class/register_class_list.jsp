@@ -14,21 +14,26 @@
                         <th>강사</th>
                         <th>신청 일자</th>
                         <th>승인 여부</th>
+                        <th>신청 취소</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="item" items="${registerClassVos}" varStatus="loop">
                         <tr>
                             <td>${loop.index + 1}</td>
-                            <td><a href="${pageContext.request.contextPath}/user/class/classInfoDetail?cls_no=${item.classInfoVo.cls_no}">${item.classInfoVo.cls_title}</a></td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/user/class/classInfoDetail?cls_no=${item.classInfoVo.cls_no}">
+                                        ${item.classInfoVo.cls_title}
+                                </a>
+                            </td>
                             <td>${item.classInfoVo.instructorMemberVo.t_name}</td>
                             <td>${item.rc_reg_time}</td>
                             <td>
                                 <c:choose>
-                                    <c:when test="${item.classInfoVo.cls_approval == 1}">
+                                    <c:when test="${item.rc_approval == 1}">
                                         <p>수강 승인</p>
                                     </c:when>
-                                    <c:when test="${item.classInfoVo.cls_approval != 0}">
+                                    <c:when test="${item.rc_approval == 0}">
                                             <p>수강 거절</p>
                                     </c:when>
                                     <c:otherwise>
@@ -36,15 +41,15 @@
                                     </c:otherwise>
                                 </c:choose>
                             </td>
+                            <td><button type="button" onclick="delete_btn(${item.rc_no})">신청 취소</button></td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
             </c:when>
             <c:otherwise>
-                <p>신청한 강의가 없습니다.</p>
+                <p>수강 신청한 강의가 없습니다.</p>
             </c:otherwise>
         </c:choose>
     </div>
-
 
