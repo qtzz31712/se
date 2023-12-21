@@ -174,15 +174,15 @@
         WHERE cls_no=#{cls_no}
     </select>
 
-    <select id="selectChapter" parameterType="int" resultMap="chapterVo">
+    <select id="listUpChapter" parameterType="int" resultMap="chapterVo">
         SELECT *
         FROM tbl_chapter
-        WHERE chap_no = #{chap_no}
+        WHERE chap_cls_no = #{chap_cls_no}
     </select>
 
     <update id="modifyChapter" parameterType="int">
         UPDATE tbl_chapter
-        SET chap_bun=#{chap_num}
+        SET chap_num=#{chap_num},
             chap_title=#{chap_title},
             chap_sub=#{chap_sub},
             chap_reference=#{chap_reference},

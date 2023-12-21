@@ -64,4 +64,8 @@ public class InstructorClassService {
     public int getChapterNumbers(int cls_no) {
        return instructorClassRepository.getChapterNumber(cls_no);
     }
+
+    public List<ChapterVo> listUpChapter(int chap_cls_no) {
+    return instructorClassRepository.listUpChapter(chap_cls_no);
+    }
 }

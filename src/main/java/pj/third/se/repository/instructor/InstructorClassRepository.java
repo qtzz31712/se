@@ -32,4 +32,6 @@ public interface InstructorClassRepository {
     int saveChapter(ChapterVo chapterVo);
 
     int getChapterNumber(int cls_no);
+
+    List<ChapterVo> listUpChapter(int chap_cls_no);
 }

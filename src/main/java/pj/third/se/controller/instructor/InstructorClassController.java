@@ -34,13 +34,16 @@ public class InstructorClassController {
     }
 
     @PostMapping("/createClassConfirm")
-    public String createClassConfirm(ClassInfoVo classInfoVo) {
+    public String createClassConfirm(ClassInfoVo classInfoVo, RedirectAttributes redirectAttributes) {
         String nextPage;
         int result = instructorClassService.createClassInfo(classInfoVo);
         if (result == 1) {
-            nextPage = "redirect:/myClassList";
+            int cls_t_no = classInfoVo.getCls_t_no();
+            nextPage = "redirect:/instructor/class/myClassList?cls_t_no="+ cls_t_no;
+            redirectAttributes.addFlashAttribute("message", "강의 등록에 성공 하였습니다");
         } else {
-            nextPage = "/instructor/class/create_class_fail";
+            nextPage = "redirect:/instructor/class/createClassForm";
+            redirectAttributes.addFlashAttribute("message", "강의 등록에 실패하였습니다.");
         }
         return nextPage;
     }
@@ -172,20 +175,13 @@ public class InstructorClassController {
     @GetMapping("/registerChapterForm")
     public String registerChapterForm(@RequestParam("cls_no") int cls_no, @ModelAttribute("message") String message,Model model){
         model.addAttribute("cls_no", cls_no);
-
+        int chapNumbers = instructorClassService.getChapterNumbers(cls_no);
+        log.info("chapNumber -->{}", chapNumbers);
+        model.addAttribute("chapNumbers", chapNumbers);
         if (message != null && !message.isEmpty()) {
             model.addAttribute("message", message);
         }
         return "instructor/chapter/register_chapter_form";
-    }
-
-    @GetMapping("/checkClassSize/{cls_no}")
-    public ModelAndView checkClassSize(@PathVariable("cls_no") int cls_no, ModelAndView modelAndView) {
-        modelAndView.setViewName("instructor/chapter/register_chapter_form");
-        int chapNumbers = instructorClassService.getChapterNumbers(cls_no);
-        log.info("chapNUM --> {}", chapNumbers);
-        modelAndView.addObject("chapNumbers", chapNumbers);
-        return modelAndView;
     }
 
     @PostMapping("/registerChapterConfirm")
@@ -203,4 +199,18 @@ public class InstructorClassController {
         return nextPage;
     }
 
+    @RequestMapping(value = "/allChapter", method = {RequestMethod.GET, RequestMethod.POST})
+    public String ChapterList(@RequestParam("cls_no") int cls_no, Model model) {
+      model.addAttribute("cls_no", cls_no);
+        return "instructor/chapter/chapter_list_form";
+}
+
+@GetMapping("/listUpChapter/{chap_cls_no}")
+public String listUpChapter(@PathVariable("chap_cls_no")int chap_cls_no, Model model){
+List<ChapterVo> chapterVos = instructorClassService.listUpChapter(chap_cls_no);
+        if (chapterVos != null) {
+        model.addAttribute("chapterVos", chapterVos);
+    }
+        return "instructor/chapter/chapter_list";
+}
 }

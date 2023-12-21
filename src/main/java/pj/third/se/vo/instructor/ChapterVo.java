@@ -9,6 +9,7 @@ public class ChapterVo {
 
     int chap_no;
     int chap_cls_no;
+    int chap_num;
     String chap_title;
     String chap_sub;
     String chap_reference;

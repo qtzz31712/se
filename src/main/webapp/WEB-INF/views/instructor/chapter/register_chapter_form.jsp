@@ -14,30 +14,11 @@
 <jsp:include page="../../common/nav.jsp"/>
 <body>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let cls_no = "${cls_no}";
-
-        getChapterNumbers(cls_no);
-    });
-
-    function getChapterNumbers(cls_no) {
-        fetch("/instructor/class/checkClassSize/"+cls_no)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('네트워크 오류가 발생하였습니다.');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data)
-                populateSelectElement(data);
-            })
-            .catch(error => {
-                console.error('강의 회차를 가져오는데 실패했습니다:', error);
-            });
-    }
-
-    function populateSelectElement(chapNumbers) {
+window.onload = function () {
+    let chapNumbers = ${chapNumbers};
+    generateChapNumber(chapNumbers);
+}
+    function generateChapNumber(chapNumbers) {
         const selectElement = document.getElementById('chapNumSelect');
         selectElement.innerHTML = '';
         for (let i = 1; i <= chapNumbers; i++) {
@@ -65,10 +46,10 @@
     }
 </script>
 <section>
-    <form action="/instructor/class/registerChapterConfirm" name="register_chapter_form" method="post">
+    <form action="${pageContext.request.contextPath}/instructor/class/registerChapterConfirm" name="register_chapter_form" method="post">
         <input type="hidden" value="${cls_no}">
         <p>수업 회차</p>
-        <select name="chap_num" id="chapNumSelect">
+        <select name="chap_num"  id="chapNumSelect">
 
         </select>
         <p>수업 제목</p>
