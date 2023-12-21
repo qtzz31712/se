@@ -35,6 +35,11 @@
         })
     }
     HopeList(t_no);
+
+    let message = "${message}";
+    if (message !== "") {
+        alert(message);
+    }
 </script>
 </body>
 </html>

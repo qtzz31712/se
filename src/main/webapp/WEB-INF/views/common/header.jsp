@@ -4,25 +4,25 @@
 <%@ page import="pj.third.se.vo.instructor.InstructorMemberVo" %>
 
 <header>
-    <script>
-        function checkSessionExpiration() {
-            $.ajax({
-                url: '/checkSession',
-                type: 'GET',
-                success: function(data) {
-                },
-                error: function(xhr, status, error) {
-                    if (xhr.status === 401) {
-                        alert('장시간 활동이 없어 로그아웃 되었습니다.');
-                        window.location.href = '/se';
-                    }
-                }
-            });
-        }
+<%--    <script>--%>
+<%--        function checkSessionExpiration() {--%>
+<%--            $.ajax({--%>
+<%--                url: '/checkSession',--%>
+<%--                type: 'GET',--%>
+<%--                success: function(data) {--%>
+<%--                },--%>
+<%--                error: function(xhr, status, error) {--%>
+<%--                    if (xhr.status === 401) {--%>
+<%--                        alert('장시간 활동이 없어 로그아웃 되었습니다.');--%>
+<%--                        window.location.href = '/se';--%>
+<%--                    }--%>
+<%--                }--%>
+<%--            });--%>
+<%--        }--%>
 
-        // 일정 시간마다 세션 만료 확인 함수 실행
-        setInterval(checkSessionExpiration, 30000); // 예시에서는 30초마다 세션 만료 확인
-    </script>
+<%--        // 일정 시간마다 세션 만료 확인 함수 실행--%>
+<%--        setInterval(checkSessionExpiration, 300000); // 예시에서는 30초마다 세션 만료 확인--%>
+<%--    </script>--%>
     <div id="header_wrap">
         <div class="logo">
             <a href="<c:url value='/'/>" class="로고"><img

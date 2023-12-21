@@ -4,6 +4,7 @@ package pj.third.se.service.insturctor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pj.third.se.repository.instructor.InstructorClassRepository;
+import pj.third.se.vo.instructor.ChapterVo;
 import pj.third.se.vo.instructor.ClassInfoVo;
 import pj.third.se.vo.user.RegisterClassVo;
 
@@ -42,5 +43,25 @@ public class InstructorClassService {
 
     public RegisterClassVo selectHopeUser(int rc_no) {
     return instructorClassRepository.selectHopeUser(rc_no);
+    }
+
+    public int approveUser(int rc_no) {
+    return instructorClassRepository.approveUser(rc_no);
+    }
+
+    public int rejectUser(int rc_no) {
+        return instructorClassRepository.rejectUser(rc_no);
+    }
+
+    public List<RegisterClassVo> listUpEnrolledUser(int cls_no) {
+    return instructorClassRepository.listUpEnrolledUser(cls_no);
+    }
+
+    public int saveChapter(ChapterVo chapterVo) {
+    return instructorClassRepository.saveChapter(chapterVo);
+    }
+
+    public int getChapterNumbers(int cls_no) {
+       return instructorClassRepository.getChapterNumber(cls_no);
     }
 }

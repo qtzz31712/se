@@ -20,7 +20,16 @@
                 <c:forEach var="item" items="${classInfoVos}" varStatus="loop">
                     <tr>
                         <td>${loop.index + 1}</td>
-                        <td><a href="${pageContext.request.contextPath}/instructor/class/classInfoDetail?cls_no=${item.cls_no}">${item.cls_title}</a></td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${empty InstructorMemberVo}">
+                            <a href="${pageContext.request.contextPath}/user/class/classInfoDetail?cls_no=${item.cls_no}">${item.cls_title}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${pageContext.request.contextPath}/instructor/class/classInfoDetail?cls_no=${item.cls_no}">${item.cls_title}</a>
+                                </c:otherwise>
+                                </c:choose>
+                        </td>
                         <td>${item.instructorMemberVo.t_name}</td>
                         <td>${item.cls_reg_date}</td>
                         <td>

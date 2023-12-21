@@ -5,12 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pj.third.se.service.insturctor.InstructorClassService;
 import pj.third.se.service.insturctor.InstructorMemberService;
+import pj.third.se.vo.instructor.ChapterVo;
 import pj.third.se.vo.instructor.ClassInfoVo;
 import pj.third.se.vo.user.RegisterClassVo;
 
-import java.security.PublicKey;
 import java.util.List;
 
 
@@ -94,9 +96,28 @@ public class InstructorClassController {
         instructorClassService.toggleApproval(cls_no, cls_approval);
     }
 
-    // 수강 신청 희망 인원 승인
+    //수강 중인 인원 목록
+    @RequestMapping(value = "/enrolledUser", method = {RequestMethod.GET, RequestMethod.POST})
+ public String enrolledUser(@RequestParam("cls_no")int cls_no, Model model){
+        model.addAttribute("cls_no", cls_no);
+        return "instructor/class/enrolled_user_form";
+    }
+
+    @RequestMapping(value = "/listUpEnrolledUser/{cls_no}", method = RequestMethod.GET)
+    public String listUpEnrolledUser(@PathVariable("cls_no") int cls_no, Model model){
+        List<RegisterClassVo> registerClassVos = instructorClassService.listUpEnrolledUser(cls_no);
+        model.addAttribute("registerClassVos", registerClassVos);
+        return "instructor/class/enrolled_user";
+    }
+
+
+    // 수강 신청 승인 관련
+
     @GetMapping("/hopeRegisterClassUser")
-    public String hopeRegisterCourseUser() {
+    public String hopeRegisterCourseUser(@ModelAttribute("message") String message, Model model) {
+        if (message != null && !message.isEmpty()) {
+            model.addAttribute("message", message);
+        }
         return "instructor/class/hope_register_class_user_form";
     }
 
@@ -108,11 +129,78 @@ public class InstructorClassController {
     }
 
     @GetMapping("/hopeUserDetail")
-    public String selectHopeUser(@RequestParam("rc_no") int rc_no, Model model) {
+    public String selectHopeUser(@RequestParam("rc_no") int rc_no, Model model, @ModelAttribute("message") String message) {
      RegisterClassVo registerClassVos = instructorClassService.selectHopeUser(rc_no);
      model.addAttribute("registerClassVos", registerClassVos);
+        if (message != null && !message.isEmpty()) {
+            model.addAttribute("message", message);
+        }
      return "instructor/class/hope_user_detail";
     }
 
+    @RequestMapping(value = "/approveUser/{rc_no}", method = {RequestMethod.GET, RequestMethod.POST})
+    public String approveUser(@PathVariable("rc_no") int rc_no, RedirectAttributes redirectAttributes) {
+        String nextPage;
+        int result;
+        result = instructorClassService.approveUser(rc_no);
+        if (result == 1) {
+            redirectAttributes.addFlashAttribute("message", "수강 신청이 승인되었습니다");
+        nextPage = "redirect:/instructor/class/hopeRegisterClassUser";
+        } else {
+        redirectAttributes.addFlashAttribute("message", "신청 승인에 실패하였습니다.");
+        nextPage = "redirect:/instructor/class/hopeUserDetail?rc_no="+rc_no;
+        }
+       return nextPage;
+    }
+
+    @RequestMapping(value = "/rejectUser/{rc_no}", method = {RequestMethod.GET, RequestMethod.POST})
+    public String rejectUser(@PathVariable("rc_no") int rc_no, RedirectAttributes redirectAttributes) {
+        String nextPage;
+        int result;
+        result = instructorClassService.rejectUser(rc_no);
+        if (result == 1) {
+            redirectAttributes.addFlashAttribute("message", "수강 신청이 거절되었습니다");
+            nextPage = "redirect:/instructor/class/hopeRegisterClassUser";
+        } else {
+            redirectAttributes.addFlashAttribute("message", "신청 거절에 실패하였습니다.");
+            nextPage = "redirect:/instructor/class/hopeUserDetail?rc_no="+rc_no;
+        }
+        return nextPage;
+    }
+
+    //개별 수업관련
+    @GetMapping("/registerChapterForm")
+    public String registerChapterForm(@RequestParam("cls_no") int cls_no, @ModelAttribute("message") String message,Model model){
+        model.addAttribute("cls_no", cls_no);
+
+        if (message != null && !message.isEmpty()) {
+            model.addAttribute("message", message);
+        }
+        return "instructor/chapter/register_chapter_form";
+    }
+
+    @GetMapping("/checkClassSize/{cls_no}")
+    public ModelAndView checkClassSize(@PathVariable("cls_no") int cls_no, ModelAndView modelAndView) {
+        modelAndView.setViewName("instructor/chapter/register_chapter_form");
+        int chapNumbers = instructorClassService.getChapterNumbers(cls_no);
+        log.info("chapNUM --> {}", chapNumbers);
+        modelAndView.addObject("chapNumbers", chapNumbers);
+        return modelAndView;
+    }
+
+    @PostMapping("/registerChapterConfirm")
+    public String registerChapterForm(ChapterVo chapterVo, RedirectAttributes redirectAttributes){
+        int result;
+        String nextPage;
+        result = instructorClassService.saveChapter(chapterVo);
+        if (result == 1) {
+            redirectAttributes.addFlashAttribute("message", "수업 등록에 성공하였습니다");
+        nextPage ="redirect:/instructor/class/chapter_list_form";
+        } else {
+            redirectAttributes.addFlashAttribute("message", "수업등록에 실패하였습니다.");
+        nextPage ="redirect:/instructor/class/register_chapter_form";
+        }
+        return nextPage;
+    }
 
 }

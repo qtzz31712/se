@@ -38,6 +38,7 @@
                     <th>번호</th>
                     <th>강의 제목</th>
                     <th>개설 일자</th>
+                    <th>수강중인 인원</th>
                     <th>수강 신청 가능 여부</th>
                 </tr>
                 </thead>
@@ -46,7 +47,8 @@
                     <tr>
                         <td>${loop.index + 1}</td>
                         <td><a href="${pageContext.request.contextPath}/instructor/class/classInfoDetail?cls_no=${item.cls_no}">${item.cls_title}</a></td>
-                        <td >${item.cls_reg_date}</td>
+                        <td>${item.cls_reg_date}</td>
+                        <td><a href="${pageContext.request.contextPath}/instructor/class/enrolledUser?cls_no=${item.cls_no}">수강중인 인원</a></td>
                         <td><c:choose>
                             <c:when test="${item.cls_approval == 1}">
                                 수강 신청 가능

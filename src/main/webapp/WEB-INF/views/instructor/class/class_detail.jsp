@@ -5,6 +5,7 @@
   Time: 오전 9:49
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -29,9 +30,21 @@
         <video>
             <source src="${classInfoVos.cls_sample}" type="video/mp4">
         </video>
-        <button type="submit" name="create_class">강의 수정</button>
-        <button type="button" name="delete_class">강의 삭제</button>
     </form>
+    <c:choose>
+        <c:when test="${classInfoVos.instructorMemberVo.t_no eq loginedInstructorMemberVo.t_no}">
+  <a href="${pageContext.request.contextPath}/instructor/class/modifyClassForm?cls_no=${classInfoVos.cls_no}">강의 수정</a>
+        <a href="${pageContext.request.contextPath}/instructor/class/registerChapterForm?cls_no=${classInfoVos.cls_no}">수업 등록</a>
+        <a href="${pageContext.request.contextPath}/instructor/class/allChapter">전체 수업</a>
+        </c:when>
+        <c:otherwise>
+            <a href="${pageContext.request.contextPath}/instructor/class/allChapter">전체 수업</a>
+        </c:otherwise>
+    </c:choose>
 </section>
+
+<script>
+
+</script>
 </body>
 </html>
