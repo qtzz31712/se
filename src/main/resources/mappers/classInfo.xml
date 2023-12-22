@@ -57,28 +57,6 @@
             </association>
         </association>
     </resultMap>
-    <resultMap id="chapterVo" type="pj.third.se.vo.instructor.ChapterVo">
-        <id property="chap_no" column="chap_no"/>
-        <result property="chap_num" column="chap_num"/>
-        <result property="chap_title" column="chap_title"/>
-        <result property="chap_sub" column="chap_sub"/>
-        <result property="chap_reference" column="chap_reference"/>
-        <result property="chap_textbook" column="chap_textbook"/>
-        <result property="chap_file" column="chap_file"/>
-        <result property="chap_reg_date" column="chap_reg_date"/>
-        <result property="chap_mod_date" column="chap_mod_date"/>
-        <association property="classInfoVo" javaType="pj.third.se.vo.instructor.ClassInfoVo">
-            <id property="cls_no" column="cls_no"/>
-            <result property="cls_title" column="cls_title"/>
-            <result property="cls_t_no" column="cls_t_no"/>
-            <result property="cls_size" column="cls_size"/>
-            <result property="cls_reg_date" column="cls_reg_date"/>
-            <result property="cls_textbook" column="cls_textbook"/>
-            <result property="cls_sub" column="cls_sub"/>
-            <result property="cls_sample" column="cls_sample"/>
-            <result property="cls_approval" column="cls_approval"/>
-        </association>
-    </resultMap>
 
     <insert id="saveClassInfo" parameterType="pj.third.se.vo.instructor.ClassInfoVo">
         INSERT INTO tbl_class_info
@@ -152,45 +130,6 @@
         WHERE rc_cls_no = #{cls_no}
           AND rc_approval = 1
     </select>
-
-    <!--    개별 수업 관련-->
-    <insert id="saveChapter" parameterType="pj.third.se.vo.instructor.ChapterVo">
-        INSERT INTO tbl_chapter
-        (chap_cls_no, chap_num, chap_title, chap_sub, chap_reference, chap_textbook, chap_file, chap_reg_date, chap_mod_date)
-        VALUES (#{chap_cls_no}, #{chap_num}, #{chap_title}, #{chap_sub}, #{chap_reference}, #{chap_textbook}, #{chap_file}, NOW(),
-                NOW())
-    </insert>
-
-    <select id="selectAllChapter" parameterType="int" resultMap="chapterVo">
-        SELECT CH.*, CLS.*
-        FROM tbl_chapter AS CH
-                 INNER JOIN tbl_class_info AS CLS ON CH.chap_cls_no = CLS.cls_no
-        WHERE chap_cls_no = #{cls_no}
-    </select>
-
-    <select id="getChapterNumber" parameterType="int" resultType="int">
-        SELECT cls_size
-        FROM tbl_class_info
-        WHERE cls_no=#{cls_no}
-    </select>
-
-    <select id="listUpChapter" parameterType="int" resultMap="chapterVo">
-        SELECT *
-        FROM tbl_chapter
-        WHERE chap_cls_no = #{chap_cls_no}
-    </select>
-
-    <update id="modifyChapter" parameterType="int">
-        UPDATE tbl_chapter
-        SET chap_num=#{chap_num},
-            chap_title=#{chap_title},
-            chap_sub=#{chap_sub},
-            chap_reference=#{chap_reference},
-            chap_textbook=#{chap_textbook},
-            chap_file=#{chap_fifle},
-            chap_mod_date=NOW()
-        WHERE chao_no = #{chap_no}
-    </update>
 
 
 </mapper>

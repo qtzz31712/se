@@ -11,14 +11,16 @@
             <th>수업 회차</th>
             <th>수업 제목</th>
             <th>게시 일자</th>
+            <th>최근 수정 일자</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="item" items="${chapterVos}"  varStatus="loop">
             <tr>
                 <td>${item.chap_num}</td>
-                <td><a href="${pageContext.request.contextPath}/instructor/class/chapterDetail?chap_no=${item.chap_no}">${item.chap_title}</a></td>
+                <td><a href="${pageContext.request.contextPath}/instructor/chapter/chapterDetail?chap_no=${item.chap_no}">${item.chap_title}</a></td>
                 <td>${item.chap_reg_date}</td>
+                <td>${item.chap_mod_date}</td>
             </tr>
         </c:forEach>
         </tbody>ㄴ

@@ -57,15 +57,5 @@ public class InstructorClassService {
     return instructorClassRepository.listUpEnrolledUser(cls_no);
     }
 
-    public int saveChapter(ChapterVo chapterVo) {
-    return instructorClassRepository.saveChapter(chapterVo);
-    }
 
-    public int getChapterNumbers(int cls_no) {
-       return instructorClassRepository.getChapterNumber(cls_no);
-    }
-
-    public List<ChapterVo> listUpChapter(int chap_cls_no) {
-    return instructorClassRepository.listUpChapter(chap_cls_no);
-    }
 }

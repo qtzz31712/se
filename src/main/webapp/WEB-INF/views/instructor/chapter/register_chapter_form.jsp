@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>수업 등록</title>
+
 </head>
 <jsp:include page="../../common/header.jsp"/>
 <jsp:include page="../../common/nav.jsp"/>
@@ -44,10 +45,65 @@ window.onload = function () {
             form.submit();
         }
     }
+
+function fileUpload() {
+    let formData = new FormData(document.register_chapter_form);
+    let file = document.register_chapter_form.chap_file.files[0];
+
+    if (!file) {
+        alert("업로드할 파일을 등록하세요.");
+        return false;
+    }
+
+    formData.append("file", file);
+
+    fetch("/upload", {
+        method: "POST",
+        body: formData
+    }).then(response => {
+        if (response.ok) {
+            return response.text();
+        }
+        throw new Error("Network response was not ok.");
+    }).then(data => {
+        console.log(data);
+    }).catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+        // 에러 처리
+    });
+}
+
+function textbookUpload() {
+    let formData = new FormData(document.register_chapter_form);
+    let file = document.register_chapter_form.chap_textbook.files[0];
+
+    if (!file) {
+        alert("업로드할 파일을 등록하세요.");
+        return false;
+    }
+
+    formData.append("file", file);
+
+    fetch("/upload", {
+        method: "POST",
+        body: formData
+    }).then(response => {
+        if (response.ok) {
+            return response.text();
+        }
+        throw new Error("Network response was not ok.");
+    }).then(data => {
+        console.log(data);
+    }).catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+        // 에러 처리
+    });
+}
+
 </script>
 <section>
-    <form action="${pageContext.request.contextPath}/instructor/class/registerChapterConfirm" name="register_chapter_form" method="post">
-        <input type="hidden" value="${cls_no}">
+    <form action="${pageContext.request.contextPath}/instructor/chapter/registerChapterConfirm" name="register_chapter_form" method="post">
+        <input type="hidden" name="chap_cls_no" value="${cls_no}">
         <p>수업 회차</p>
         <select name="chap_num"  id="chapNumSelect">
 
@@ -60,12 +116,19 @@ window.onload = function () {
         <input type="text" name="chap_reference" placeholder="참고문헌을 입력하세요">
         <p>강의 교안</p>
         <input type="file" name="chap_textbook">
+        <button type="button" onclick="textbookUpload()">파일 등록</button>
         <p>강의 파일</p>
         <input type="file" name="chap_file">
+        <button type="button" onclick="fileUpload()">파일 등록</button>
         <button type="button" onclick="register_btn()" >강의 등록</button>
         <button type="reset">초기화</button>
     </form>
 </section>
-
+<script>
+    let message = "${message}";
+    if (message !== "") {
+        alert(message);
+    }
+</script>
 </body>
 </html>

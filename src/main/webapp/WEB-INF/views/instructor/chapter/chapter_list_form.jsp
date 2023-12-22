@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>전체 수업 목록</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <jsp:include page="../../common/header.jsp"/>
@@ -18,7 +19,7 @@
     classList(chap_cls_no);
     function classList(chap_cls_no) {
         jQuery.ajax({
-            url: "${pageContext.request.contextPath}/instructor/class/listUpChapter/" + chap_cls_no,
+            url: "${pageContext.request.contextPath}/instructor/chapter/listUpChapter/"+chap_cls_no,
             type: "GET",
             contentType: 'application/json; charset=utf-8',
             success: function (rdata) {
@@ -29,6 +30,12 @@
                 alert(error);
             }
         })
+    }
+</script>
+<script>
+    let message = "${message}";
+    if (message !== "") {
+        alert(message);
     }
 </script>
 </body>

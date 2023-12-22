@@ -60,6 +60,34 @@ function modifyClassInfo() {
         }
     }
 }
+
+function fileUpload() {
+    let formData = new FormData(document.class_info_form);
+    let file = document.class_info_form.cls_sample.files[0];
+
+    if (!file) {
+        alert("업로드할 파일을 등록하세요.");
+        return false;
+    }
+
+    formData.append("file", file);
+
+    fetch("/upload", {
+        method: "POST",
+        body: formData
+    }).then(response => {
+        if (response.ok) {
+            return response.text();
+        }
+        throw new Error("Network response was not ok.");
+    }).then(data => {
+        document.querySelector('input[name="cls_sample"]').value = data;
+        console.log("File uploaded successfully:", data);
+    }).catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+        // 에러 처리
+    });
+}
     </script>
 </head>
 <body>
@@ -78,8 +106,8 @@ function modifyClassInfo() {
         <video>
             <source src="${classInfoVos.cls_sample}" type="video/mp4" class="cls_sample">
         </video>
-        <button type="button" class="delete_video" onclick="delete_video()"></button>
         <input type="file" name="cls_sample" accept="video/*">
+        <button type="button" onclick="fileUpload()">파일 업로드</button>
         <button type="button" name="create_class" onclick="modifyClassInfo()">수정 완료</button>
     </form>
 </section>

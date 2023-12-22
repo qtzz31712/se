@@ -38,6 +38,7 @@ dependencies {
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.session:spring-session-core'
+    implementation 'software.amazon.awssdk:s3-transfer-manager:2.20.109'
 }
 
 tasks.named('bootBuildImage') {

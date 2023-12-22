@@ -33,6 +33,34 @@
             }
         }
     }
+
+    function fileUpload() {
+        let formData = new FormData(document.create_class_form);
+        let file = document.create_class_form.cls_sample.files[0];
+
+        if (!file) {
+            alert("업로드할 파일을 등록하세요.");
+            return false;
+        }
+
+        formData.append("file", file);
+
+        fetch("/upload", {
+            method: "POST",
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                return response.text();
+            }
+            throw new Error("Network response was not ok.");
+        }).then(data => {
+            document.querySelector('input[name="cls_sample"]').value = data;
+            console.log("File uploaded successfully:", data);
+        }).catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+            // 에러 처리
+        });
+    }
 </script>
 </head>
 <body>
@@ -46,6 +74,7 @@
     사용 교재<input type="text" name="cls_textbook" placeholder="사용 교재를 입력 하세요" >
     강의 요약<textarea name="cls_sub" placeholder="강의 설명및 요약을 작성 하세요"></textarea>
     시범 영상<input type="file" name="cls_sample">
+    <button type="button" onclick="fileUpload()">파일등록</button>
     <button type="button" name="create_class" onclick="createClass();">강의 등록</button>
     <button type="reset" name="reset">초기화</button>
 </form>

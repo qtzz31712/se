@@ -77,7 +77,7 @@ public class InstructorClassController {
     }
 
     //강의 수정
-    @PostMapping("/modifyClassForm")
+    @RequestMapping(value = "/modifyClassForm", method = {RequestMethod.GET, RequestMethod.POST})
     public String modifyClassForm(@RequestParam("cls_no") int cls_no, Model model) {
         ClassInfoVo classInfoVos = instructorClassService.classInfoDetail(cls_no);
         model.addAttribute("classInfoVos", classInfoVos);
@@ -171,46 +171,4 @@ public class InstructorClassController {
         return nextPage;
     }
 
-    //개별 수업관련
-    @GetMapping("/registerChapterForm")
-    public String registerChapterForm(@RequestParam("cls_no") int cls_no, @ModelAttribute("message") String message,Model model){
-        model.addAttribute("cls_no", cls_no);
-        int chapNumbers = instructorClassService.getChapterNumbers(cls_no);
-        log.info("chapNumber -->{}", chapNumbers);
-        model.addAttribute("chapNumbers", chapNumbers);
-        if (message != null && !message.isEmpty()) {
-            model.addAttribute("message", message);
-        }
-        return "instructor/chapter/register_chapter_form";
-    }
-
-    @PostMapping("/registerChapterConfirm")
-    public String registerChapterForm(ChapterVo chapterVo, RedirectAttributes redirectAttributes){
-        int result;
-        String nextPage;
-        result = instructorClassService.saveChapter(chapterVo);
-        if (result == 1) {
-            redirectAttributes.addFlashAttribute("message", "수업 등록에 성공하였습니다");
-        nextPage ="redirect:/instructor/class/chapter_list_form";
-        } else {
-            redirectAttributes.addFlashAttribute("message", "수업등록에 실패하였습니다.");
-        nextPage ="redirect:/instructor/class/register_chapter_form";
-        }
-        return nextPage;
-    }
-
-    @RequestMapping(value = "/allChapter", method = {RequestMethod.GET, RequestMethod.POST})
-    public String ChapterList(@RequestParam("cls_no") int cls_no, Model model) {
-      model.addAttribute("cls_no", cls_no);
-        return "instructor/chapter/chapter_list_form";
-}
-
-@GetMapping("/listUpChapter/{chap_cls_no}")
-public String listUpChapter(@PathVariable("chap_cls_no")int chap_cls_no, Model model){
-List<ChapterVo> chapterVos = instructorClassService.listUpChapter(chap_cls_no);
-        if (chapterVos != null) {
-        model.addAttribute("chapterVos", chapterVos);
-    }
-        return "instructor/chapter/chapter_list";
-}
 }

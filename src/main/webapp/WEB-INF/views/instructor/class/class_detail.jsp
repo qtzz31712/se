@@ -34,8 +34,8 @@
     <c:choose>
         <c:when test="${classInfoVos.instructorMemberVo.t_no eq loginedInstructorMemberVo.t_no}">
   <a href="${pageContext.request.contextPath}/instructor/class/modifyClassForm?cls_no=${classInfoVos.cls_no}">강의 수정</a>
-        <a href="${pageContext.request.contextPath}/instructor/class/registerChapterForm?cls_no=${classInfoVos.cls_no}">수업 등록</a>
-        <a href="${pageContext.request.contextPath}/instructor/class/allChapter?cls_no=${classInfoVos.cls_no}">전체 수업</a>
+        <a href="${pageContext.request.contextPath}/instructor/chapter/registerChapterForm?cls_no=${classInfoVos.cls_no}">수업 등록</a>
+        <a href="${pageContext.request.contextPath}/instructor/chapter/allChapter?cls_no=${classInfoVos.cls_no}">전체 수업</a>
         </c:when>
         <c:otherwise>
             <a href="${pageContext.request.contextPath}/instructor/class/allChapter">전체 수업</a>
